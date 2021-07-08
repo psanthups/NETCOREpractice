@@ -1,14 +1,21 @@
 ﻿<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+    <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
     <link href="~/css/Site.css" rel="stylesheet" />
     <title></title>
 </head>
-<body>
+<body class="container">
 
-    <img src="~/images/bugg.jpg" class="logo" />
-    <img src="~/MystaticFiles/bug.jpg" />
-
+    <img src="~/images/bugg.jpg" class="logo" alt="logo" />
+    
+    <input type="button" value="click me" class="btn-danger" />
+    <script src="~/lib/jquery/jquery.js"></script>
     <h1>This is book store application  home index</h1>
-    <p>this is a website to get all books</p>
+    <p>this is a website to get all kind of books</p>
+    <script>
+        $(document).ready(function() {
+            alert("Page Loaded");
+        });
+    </script>
 </body>
 </html>

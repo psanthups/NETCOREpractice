@@ -31,11 +31,11 @@ namespace BookStore
 
             app.UseStaticFiles();
 
-            app.UseStaticFiles(new StaticFileOptions()
+            /*app.UseStaticFiles(new StaticFileOptions()  //this is for acces static files from other location
             {
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "MyStaticFiles")),
                 RequestPath = "/MyStaticFiles"
-            });
+            });*/
 
             app.UseRouting();
 
