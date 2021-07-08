@@ -3,19 +3,17 @@
     <title></title>
 </head>
 <body>
-    <h1>welcome to book store application  home index</h1>
-    <h3>@DateTime.Now.Date</h3>
-    <h3>sum = @(4 + 6)</h3>
-    <hr/>
-    <h3>multiline code</h3>
-    @{ 
-        int a = 6;
-        int b = 14;
-        int c = a + b;
+    
+    @for (int a = 0; a < 4; a++)
+    {
+                <h4>repated in for loop</h4>
     }
-    <h3>@c</h3>
-    <h4>My email - santhosh@gmail.com</h4>
-    <br />
-    <h4>twitter - @@santhosh__p</h4>
+    @{
+        var list = new List<int> { 1, 2, 3, 4, 5 };
+            }
+    @foreach (var item in list)
+            {
+                <h3>@item</h3>
+            }
 </body>
 </html>
