@@ -1,6 +1,10 @@
 ﻿body {
 }
 .logo {
-    height = 10px;
-    width = 30px;
+    height : 10px;
+    width : 30px;
+}
+.card-img-top {
+    height:5px;
+    width:10px;
 }
