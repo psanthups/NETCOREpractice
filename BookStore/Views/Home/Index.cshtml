@@ -1,7 +1,4 @@
-﻿@{
-    Layout = "_Layout";
-
-}
+﻿
 
 
 <section class=" jumbotron text-center">
@@ -62,7 +59,13 @@
                 </div>
             </div>
         </div>
-
+        @section script1{
+                <script>
+                    $(document).ready(function() {
+                        //alert("document is ready");
+                    })
+                </script>
+            }
 
 
     </div>
