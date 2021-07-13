@@ -10,17 +10,15 @@ namespace BookStore.Controllers
 {
     public class HomeController : Controller
     {
+        [ViewData]
+        public string Title { get; set; }
+        [ViewData]
+        public BookModel book { get; set; }
         public ViewResult Index()
         {
-            ViewBag.Title = "Site";
-            dynamic data = new ExpandoObject();
-            data.Id = 1;
-            data.Name = "Bookish";
-            ViewBag.Data = data;
-            ViewBag.Type = new BookModel() { Id = 6, Author = "Author name" };
-
-            ViewData["Title"] = "WEB";
-            ViewData["Book"] = new BookModel() { Author = "hello", Id = 1 };
+           
+           Title = "Home";
+           book = new BookModel() { Author = "hello", Id = 1 };
 
             return View();
         }

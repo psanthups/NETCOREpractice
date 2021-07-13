@@ -1,11 +1,11 @@
-﻿@{ 
-    ViewData["HeadTitle"] = "BookDetails"+Model.Title;
-}
-@model BookModel
+﻿@{
+        ViewData["HeadTitle"] = "BookDetails"+Model.book.Title;
+    }
+@*@model BookModel*@
 
 
 <div class="container">
-    <h3 class="display-4">Book Details</h3>
+    <h3 class="display-4">Book Details @Model.Name</h3>
     <div class="row">
         <div class="col-md-6">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -38,19 +38,19 @@
         <div class="col-md-6">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>@Model.Title</h1>
+                    <h1>@Model.book.Title</h1>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12 text-primary">
                     <span class="label label-primary">By:</span>
-                    <span class="font-monospace">@Model.Author</span>
+                    <span class="font-monospace">@Model.book.Author</span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <p class="description">
-                        @Model.Description
+                        @Model.book.Description
                     </p>
                 </div>
             </div>
@@ -63,19 +63,19 @@
             </div>
             <hr />
             <ul class="list-group">
-                <li class="list-group-item"><span class="font-weight-bold">Categiry -</span>@Model.Categiry</li>
-                <li class="list-group-item"><span class="font-weight-bold">Total Pages -<</span>@Model.TotalPages</li>
-                <li class="list-group-item"><span class="font-weight-bold">language -</span>@Model.Language</li>
+                <li class="list-group-item"><span class="font-weight-bold">Categiry -</span>@Model.book.Categiry</li>
+                <li class="list-group-item"><span class="font-weight-bold">Total Pages -<</span>@Model.book.TotalPages</li>
+                <li class="list-group-item"><span class="font-weight-bold">language -</span>@Model.book.Language</li>
             </ul>
         </div>
     </div>
 
-    <hr/>
+    <hr />
 
     <div class="py-5 bg-light">
         <h3 class="h3">Similar Books</h3>
         <div class="row">
-            @for (int i= 0; i < 5; i++)
+            @for (int i = 0; i < 5; i++)
             {
                 <div class="col-md-4">
                     <div class="card mb-4 shadow-sm">

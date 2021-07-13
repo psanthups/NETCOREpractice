@@ -1,24 +1,30 @@
-﻿@{ 
+﻿@*@{ 
     dynamic data = ViewBag.Data;//for viewBag here we have mention the dynamic data type for complex viewBag code like using viewBag in BookModel data type
     var Bookinfo = ViewData["Book"] as BookModel;//for viewData here we have cast the data and datatype for complex viewData code like using viewData in BookModel data type
     ViewData["HeadTitle"] = "Home";
-}
+}*@
+@{
+    var look = ViewData["book"] as BookModel;
+            }
 
 
 <section class=" jumbotron text-center">
     <div class="container">
         <h1>WELCOME TO BOOKSTORE</h1>
         <p>
-            @ViewBag.Title <br />
-            @data.Id <br />
-            @data.Name <br />
-            Id=@ViewBag.Type.Id <br />
-            Name = @ViewBag.Type.Author<br />
 
+            @*  @data.Id <br />
+        @data.Name <br />
+        Id=@ViewBag.Type.Id <br />
+        Name = @ViewBag.Type.Author<br />
+
+
+        Id=@Bookinfo.Id <br />
+        Name= @Bookinfo.Author<br />*@
             @ViewData["Title"] <br />
-            Id=@Bookinfo.Id <br />
-            Name= @Bookinfo.Author<br />
-         
+            Id = @look.Id <br />
+            Name = @look.Author <br />
+
             This is a book apllication here you get all kind of books.
             whatever you want can order through this website
         </p>

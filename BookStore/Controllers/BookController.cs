@@ -1,4 +1,4 @@
-﻿using BookStore.Models;
+﻿//using BookStore.Models;
 using BookStore.Repository;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -17,17 +17,23 @@ namespace BookStore.Controllers
         }
         public ViewResult GetAllBooks()
         {
-            var data = _bookRepository.GetAllBooks();
+           var data = _bookRepository.GetAllBooks();
+          
             return View(data);
         }
         public ViewResult GetBook(int id)
         {
-            var data = _bookRepository.GetBookById(id);
+            dynamic data = new System.Dynamic.ExpandoObject();
+           data.book= _bookRepository.GetBookById(id);
+           data.Name = "hurrey";
+
+            
+           // var data = _bookRepository.GetBookById(id);
             return View(data);
         }
-        public List<BookModel> SearchBooks(string bookName, string authorName)
+       /* public List<BookModel> SearchBooks(string bookName, string authorName)
         {
             return _bookRepository.SearchBook(bookName, authorName);
-        }
+        }*/
     }
 }
