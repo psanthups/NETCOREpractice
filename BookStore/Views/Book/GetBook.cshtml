@@ -1,11 +1,11 @@
 ﻿@{
-        ViewData["HeadTitle"] = "BookDetails"+Model.book.Title;
+        ViewData["HeadTitle"] = "BookDetails"+Model.Title;
     }
-@*@model BookModel*@
+@model BookModel
 
 
 <div class="container">
-    <h3 class="display-4">Book Details @Model.Name</h3>
+    <h3 class="display-4">Book Details</h3>
     <div class="row">
         <div class="col-md-6">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -38,19 +38,19 @@
         <div class="col-md-6">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>@Model.book.Title</h1>
+                    <h1>@Model.Title</h1>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12 text-primary">
                     <span class="label label-primary">By:</span>
-                    <span class="font-monospace">@Model.book.Author</span>
+                    <span class="font-monospace">@Model.Author</span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <p class="description">
-                        @Model.book.Description
+                        @Model.Description
                     </p>
                 </div>
             </div>
@@ -63,9 +63,9 @@
             </div>
             <hr />
             <ul class="list-group">
-                <li class="list-group-item"><span class="font-weight-bold">Categiry -</span>@Model.book.Categiry</li>
-                <li class="list-group-item"><span class="font-weight-bold">Total Pages -<</span>@Model.book.TotalPages</li>
-                <li class="list-group-item"><span class="font-weight-bold">language -</span>@Model.book.Language</li>
+                <li class="list-group-item"><span class="font-weight-bold">Categiry -</span>@Model.Categiry</li>
+                <li class="list-group-item"><span class="font-weight-bold">Total Pages -<</span>@Model.TotalPages</li>
+                <li class="list-group-item"><span class="font-weight-bold">language -</span>@Model.Language</li>
             </ul>
         </div>
     </div>

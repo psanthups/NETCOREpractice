@@ -1,4 +1,4 @@
-﻿//using BookStore.Models;
+﻿using BookStore.Models;
 using BookStore.Repository;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -23,17 +23,17 @@ namespace BookStore.Controllers
         }
         public ViewResult GetBook(int id)
         {
-            dynamic data = new System.Dynamic.ExpandoObject();
+           /* dynamic data = new System.Dynamic.ExpandoObject();
            data.book= _bookRepository.GetBookById(id);
-           data.Name = "hurrey";
+           data.Name = "hurrey";*/  // this is for dynamic data use without using @model directive so that we can acces data in sntx of : @Model.book.Id(or)Author...
 
             
-           // var data = _bookRepository.GetBookById(id);
+            var data = _bookRepository.GetBookById(id);
             return View(data);
         }
-       /* public List<BookModel> SearchBooks(string bookName, string authorName)
+        public List<BookModel> SearchBooks(string bookName, string authorName)
         {
             return _bookRepository.SearchBook(bookName, authorName);
-        }*/
+        }
     }
 }
