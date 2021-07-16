@@ -1,16 +1,22 @@
-﻿@{ 
+﻿@{
     ViewData["HeadTitle"] = "All Books";
 }
 @model IEnumerable<BookModel>
-
+@*@{
+        var parameters = new Dictionary<string, string>()
+        {
+        { "name", "santhu"},
+        { "company", " unlio"}
+    };
+    }*@
 
 
 <div class="container">
     <h3 class="display-4">All Books</h3>
-    
-        <div class="row">
-            @foreach (var book in Model)
-            {
+
+    <div class="row">
+        @foreach (var book in Model)
+        {
             <div class="col-md-4">
                 <div class="card mb-4 ">
 
@@ -19,19 +25,20 @@
                         <h5 class="card-title">@book.Title</h5>
                         <p class="card-text">@book.Description</p>
                         <div class="d-flex justify-content-between align-items-center">
-                            <a href="/book/getbook/@book.Id" class="btn btn-primary"> View Details</a>
+                            <a asp-controller="Book" asp-action="GetBook" asp-route-Id="@book.Id" asp-route-NameofBook="@book.Title"
+                                asp-fragment="SimilarBooks"  class="btn btn-primary"> View Details</a>
                         </div>
                         <small class="text-muted"> Authour : @book.Author</small>
                     </div>
                 </div>
 
             </div>
-            }
+        }
 
 
 
-        </div>
-    
-</div>  
+    </div>
+
+</div>
 
 

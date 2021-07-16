@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewData["Title"] | Book Store Application</title>
+    <title>@ViewData["HeadTitle"] | Book Store Application</title>
     <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
     <link href="~/css/Site.css" rel="stylesheet" />
 </head>
@@ -28,16 +28,19 @@
                     </ul>
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="/">Home</a>
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="/home/aboutus">About</a>
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Aboutus">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="/home/contactus">Contact</a>
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Contactus">Contact</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="/book/getallbooks">GetAllBooks</a>
+                            <a class="nav-link text-dark" asp-controller="Book" asp-action="GetAllBooks">GetAllBooks</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-protocol="http" asp-host="books.com" asp-controller="Book" asp-action="GetAllBooks">new link</a>
                         </li>
                     </ul>
                 </div>

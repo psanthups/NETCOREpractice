@@ -10,15 +10,15 @@ namespace BookStore.Controllers
 {
     public class HomeController : Controller
     {
-        [ViewData]
+       /* [ViewData]
         public string Title { get; set; }
         [ViewData]
-        public BookModel book { get; set; }
+        public BookModel book { get; set; }*/
         public ViewResult Index()
         {
            
-           Title = "Home";
-           book = new BookModel() { Author = "hello", Id = 1 };
+           /*Title = "Home";
+           book = new BookModel() { Author = "hello", Id = 1 };*/
 
             return View();
         }

@@ -1,10 +1,11 @@
 ﻿@*@{ 
     dynamic data = ViewBag.Data;//for viewBag here we have mention the dynamic data type for complex viewBag code like using viewBag in BookModel data type
     var Bookinfo = ViewData["Book"] as BookModel;//for viewData here we have cast the data and datatype for complex viewData code like using viewData in BookModel data type
-    ViewData["HeadTitle"] = "Home";
+    
 }*@
 @{
     var look = ViewData["book"] as BookModel;
+    ViewData["HeadTitle"] = "Home";
             }
 
 
@@ -20,10 +21,10 @@
 
 
         Id=@Bookinfo.Id <br />
-        Name= @Bookinfo.Author<br />*@
+        Name= @Bookinfo.Author<br />
             @ViewData["Title"] <br />
             Id = @look.Id <br />
-            Name = @look.Author <br />
+            Name = @look.Author <br />*@
 
             This is a book apllication here you get all kind of books.
             whatever you want can order through this website

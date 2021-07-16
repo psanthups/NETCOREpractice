@@ -21,7 +21,8 @@ namespace BookStore.Controllers
           
             return View(data);
         }
-        public ViewResult GetBook(int id)
+        [Route("book-details/{id}", Name ="bookdetailsrouting")]
+        public ViewResult GetBook(int id, string NameofBook)
         {
            /* dynamic data = new System.Dynamic.ExpandoObject();
            data.book= _bookRepository.GetBookById(id);
