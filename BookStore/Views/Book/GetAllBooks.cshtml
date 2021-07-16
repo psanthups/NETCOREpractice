@@ -2,13 +2,7 @@
     ViewData["HeadTitle"] = "All Books";
 }
 @model IEnumerable<BookModel>
-@*@{
-        var parameters = new Dictionary<string, string>()
-        {
-        { "name", "santhu"},
-        { "company", " unlio"}
-    };
-    }*@
+
 
 
 <div class="container">
@@ -25,8 +19,8 @@
                         <h5 class="card-title">@book.Title</h5>
                         <p class="card-text">@book.Description</p>
                         <div class="d-flex justify-content-between align-items-center">
-                            <a asp-controller="Book" asp-action="GetBook" asp-route-Id="@book.Id" asp-route-NameofBook="@book.Title"
-                                asp-fragment="SimilarBooks"  class="btn btn-primary"> View Details</a>
+                            <a asp-controller="Book" asp-action="GetBook" asp-route-Id="@book.Id" 
+                                  class="btn btn-primary"> View Details</a>
                         </div>
                         <small class="text-muted"> Authour : @book.Author</small>
                     </div>

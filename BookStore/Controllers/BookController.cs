@@ -21,8 +21,8 @@ namespace BookStore.Controllers
           
             return View(data);
         }
-        [Route("book-details/{id}", Name ="bookdetailsrouting")]
-        public ViewResult GetBook(int id, string NameofBook)
+        //[Route("book-details/{id}", Name ="bookdetailsrouting")] //this used to pass custom url by tag helpers we use asp-route="bookdetailsrouting" in <a> tag of this actin view so we get book details in url of that page
+        public ViewResult GetBook(int id)
         {
            /* dynamic data = new System.Dynamic.ExpandoObject();
            data.book= _bookRepository.GetBookById(id);
