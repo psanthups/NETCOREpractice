@@ -54,7 +54,7 @@
                             <a class="nav-link text-dark" asp-controller="Book" asp-action="GetAllBooks">GetAllBooks</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-protocol="http" asp-host="books.com" asp-controller="Book" asp-action="GetAllBooks">new link</a>
+                            <a class="nav-link text-dark"  asp-controller="Book" asp-action="AddNewBook">Add NewBook</a>
                         </li>
                     </ul>
                 </div>
@@ -64,6 +64,7 @@
     <main class="main">
         @RenderBody()
     </main>
+
 
     <footer class="border-top footer text-muted text-center">
         <div class="container">
