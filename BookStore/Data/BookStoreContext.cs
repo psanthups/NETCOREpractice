@@ -17,11 +17,11 @@ namespace BookStore.Data
 
         public DbSet<Books> Books { get; set; }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer("Server=.;Database=BookStore; Integated Security=True;");
-        //    base.OnConfiguring(optionsBuilder);
-        //}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            //optionsBuilder.UseSqlServer()
+            //base.OnConfiguring(optionsBuilder);
+        }
 
     }
 }
