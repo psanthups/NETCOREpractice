@@ -8,3 +8,11 @@
     height:5px;
     width:10px;
 }
+
+.border-top footer text-muted text-center{
+    border: dashed;
+}
+
+.bigger {
+    font-size: 50px !important;
+}

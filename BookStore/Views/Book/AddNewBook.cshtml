@@ -9,7 +9,7 @@
     {
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong>cogratulations!</strong> You have added book succesfully.<br />
-            click here to view the details.
+            click <a asp-controller="Book" asp-action="GetBook" asp-all-route-id="@ViewBag.BookId">here</a> to view the details.
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     }
