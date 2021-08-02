@@ -15,21 +15,21 @@ namespace BookStore.Controllers
         {
             _bookRepository = bookRepository;
         }
-        public ViewResult GetAllBooks()
+        public async Task<ViewResult> GetAllBooks()
         {
-           var data = _bookRepository.GetAllBooks();
+           var data = await _bookRepository.GetAllBooks();
           
             return View(data);
         }
         //[Route("book-details/{id}", Name ="bookdetailsrouting")] //this used to pass custom url by tag helpers we use asp-route="bookdetailsrouting" in <a> tag of this actin view so we get book details in url of that page
-        public ViewResult GetBook(int id)
+        public async Task<ViewResult> GetBook(int id)
         {
            /* dynamic data = new System.Dynamic.ExpandoObject();
            data.book= _bookRepository.GetBookById(id);
            data.Name = "hurrey";*/  // this is for dynamic data use without using @model directive so that we can acces data in sntx of : @Model.book.Id(or)Author...
 
             
-            var data = _bookRepository.GetBookById(id);
+            var data =await _bookRepository.GetBookById(id);
             return View(data);
         }
         public List<BookModel> SearchBooks(string bookName, string authorName)
@@ -45,9 +45,9 @@ namespace BookStore.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddNewBook(BookModel bookModel)
+        public async Task<IActionResult> AddNewBook(BookModel bookModel)
         {
-            int id = _bookRepository.AddNewBook(bookModel);
+            int id =await _bookRepository.AddNewBook(bookModel);
             if (id > 0)
             {
                 return RedirectToAction(nameof(AddNewBook),new {isSuccess = true, bookId = id });
