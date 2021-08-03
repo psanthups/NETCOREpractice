@@ -23,7 +23,8 @@ namespace BookStore.Repository
                 CreatedOn = DateTime.UtcNow,
                 Description = model.Description,
                 Title = model.Title,
-                TotalPages = model.TotalPages,
+                Language = model.Language,
+                TotalPages = model.TotalPages.HasValue ? model.TotalPages.Value : 0, //here from ".hasvalue" we wrote this to convert the nullible value into int by asking hasvalue? if no the totalpages value is 0. other wise we get error as nullible value con't convert
                 UpdatedOn = DateTime.UtcNow
             };
            await _context.Books.AddAsync(newBook);

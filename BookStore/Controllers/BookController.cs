@@ -39,19 +39,29 @@ namespace BookStore.Controllers
 
         public ViewResult AddNewBook(bool isSuccess = false, int bookId = 0)
         {
+            var model = new BookModel()                                        /*here we are passing tha language of the book by default to english (WeakReference are passing this byte controller)*/
+            {                                                                  //and we have pass this var model in below view method(return view(MethodAccessException))
+                Language = "English"
+            };
             ViewBag.IsSuccess = isSuccess;
             ViewBag.BookId = bookId;
-            return View();
+            return View(model);
         }
 
         [HttpPost]
         public async Task<IActionResult> AddNewBook(BookModel bookModel)
         {
-            int id =await _bookRepository.AddNewBook(bookModel);
-            if (id > 0)
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(AddNewBook),new {isSuccess = true, bookId = id });
+                int id = await _bookRepository.AddNewBook(bookModel);
+                if (id > 0)
+                {
+                    return RedirectToAction(nameof(AddNewBook), new { isSuccess = true, bookId = id });
+                }
             }
+            //ViewBag.IsSuccess = false; //these two lines are used to not to show error if modelstate is not valid incase we not entered any data in addnew book form and submitted directly.
+            //ViewBag.BookId = 0; // we can also fix this by writning "false" for viewbag.IsSuccess in addnewbook html view.so am commenting these lines
+            ModelState.AddModelError("", "this is custom error"); //this is custom error using validation summar. here we have to pass 2 parameters 1 is key(if we dont have kepp it blank like here) and other is error msg which we want to display.
             return View();
         }
     } 

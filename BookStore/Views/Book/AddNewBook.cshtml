@@ -5,7 +5,7 @@
 <div class="container">
     <h3 class="display-3">Add New Book</h3>
     <hr />
-    @if (ViewBag.IsSuccess)
+    @if (ViewBag.IsSuccess == true)
     {
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong>cogratulations!</strong> You have added book succesfully.<br />
@@ -15,22 +15,44 @@
     }
 
 
-    <form method="post" asp-action="AddNewBook" asp-controller="Book">
+<form method="post" asp-action="AddNewBook" asp-controller="Book">
+    <div asp-validation-summary="All" class="text-danger"></div>        @*we also have (ModelOnly (this for custom errors)&None(no error showed) &All(shows model property errors and custom errors)) we use these to show validation errors at top at one place this is other way to display validation errors. custom error written in model validation(BookController).*@
+    @*<div class="form-group">
+             <label asp-for="MyField"></label>
+             <input asp-for="MyField" class="form-control" />
+             <span asp-validation-for="MyField" class="text-danger"></span>
+        </div>*@                                                            @*this is used here to how to generate a field in form using attribute model class.*@
+
+        <div class="form-group">
+            <label asp-for="Language"></label>
+            <select asp-for="Language" class="form-control">
+                <option value="">choose language of book</option>
+                <option>English</option>
+                <option>French</option>
+                <option>Hindi</option>
+                <option>Telugu</option>
+            </select>
+            <span asp-validation-for="Language" class="text-danger"></span>
+        </div>
         <div class="form-group">
             <label asp-for="Title"></label>
             <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>    @*this tag used only to display the validation error if we use other tags it will not visible*@
         </div>
         <div class="form-group">
             <label asp-for="Author"></label>
             <input asp-for="Author" class="form-control" />
+            <span asp-validation-for="Author" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="Description"></label>
             <textarea asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="TotalPages"></label>
             <input asp-for="TotalPages" class="form-control" />
+            <span asp-validation-for="TotalPages" class="text-danger"></span>
         </div>
         <br />
         <div class="form-group">
