@@ -1,6 +1,7 @@
 ﻿using BookStore.Models;
 using BookStore.Repository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +44,7 @@ namespace BookStore.Controllers
             {                                                                  //and we have pass this var model in below view method(return view(MethodAccessException))
                 Language = "English"
             };
+            ViewBag.Language = new SelectList(new List<string>() { "English", "Hindi", "Telugu", "French" });
             ViewBag.IsSuccess = isSuccess;
             ViewBag.BookId = bookId;
             return View(model);
@@ -59,6 +61,9 @@ namespace BookStore.Controllers
                     return RedirectToAction(nameof(AddNewBook), new { isSuccess = true, bookId = id });
                 }
             }
+
+            ViewBag.Language = new SelectList(new List<string>() { "English", "Hindi", "Telugu", "French" });
+
             //ViewBag.IsSuccess = false; //these two lines are used to not to show error if modelstate is not valid incase we not entered any data in addnew book form and submitted directly.
             //ViewBag.BookId = 0; // we can also fix this by writning "false" for viewbag.IsSuccess in addnewbook html view.so am commenting these lines
             ModelState.AddModelError("", "this is custom error"); //this is custom error using validation summar. here we have to pass 2 parameters 1 is key(if we dont have kepp it blank like here) and other is error msg which we want to display.
