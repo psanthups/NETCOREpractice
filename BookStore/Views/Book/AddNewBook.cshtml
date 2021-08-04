@@ -27,10 +27,10 @@
             <label asp-for="Language"></label>
             <select asp-for="Language" class="form-control">
                 <option value="">choose language of book</option>
-                <option>English</option>
-                <option>French</option>
-                <option>Hindi</option>
-                <option>Telugu</option>
+                <option value="English">English(global language)</option>                    @*here the value="English" will be added to database data presnt in tag just for frontend*@
+                <option value="French">French</option>
+                <option value="Hindi">Hindi</option>
+                <option value="Telugu">Telugu</option>
             </select>
             <span asp-validation-for="Language" class="text-danger"></span>
         </div>
