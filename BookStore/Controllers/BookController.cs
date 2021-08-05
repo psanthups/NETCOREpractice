@@ -51,7 +51,7 @@ namespace BookStore.Controllers
             ViewBag.Language = new List<SelectListItem>()                             //this is a best way to create dropdown using selectlistitem (this is the second method by using selectlistitem) in 1st method we need to get data of getlanguage(private) function
             {                                                                                          //in form of selectlistitem so we convert that and then convert this whole thing again to list by using ToList(). in 1st method we use getlanguage function text amd value properties as parameters here
                 new SelectListItem(){Text = "English", Value = "1", Group = group1},
-                new SelectListItem(){Text = "Hindi", Value = "2",Group = group1, Disabled = true},
+                new SelectListItem(){Text = "Hindi", Value = "2",Group = group1},
                 new SelectListItem(){Text = "Telugu", Value = "3", Group = group2},
                 new SelectListItem(){Text = "French", Value = "4", Group = group2},
                 new SelectListItem(){Text = "Tamil", Value = "5", Group = group3},
@@ -76,7 +76,18 @@ namespace BookStore.Controllers
 
             //ViewBag.Language = new SelectList(new List<string>() { "English", "Hindi", "Telugu", "French" });    //here we are passing the languages from action method controller by selectList but desabled cause we passing languages by language model by creating a private method getlanguage method (note same line there in get mothod but i removed it
             ViewBag.Language = new SelectList(GetLanguage(), "Id", "Text");                                        //we can pass language using this selectlist in view file of select tag(inside) as we done previously by passing parameters to this selectlist.
-
+            var group1 = new SelectListGroup() { Name = "Group1" };
+            var group2 = new SelectListGroup() { Name = "Group2" };
+            var group3 = new SelectListGroup() { Name = "Group3" };
+            ViewBag.Language = new List<SelectListItem>()
+            {
+                new SelectListItem(){Text = "English", Value = "1", Group = group1},
+                new SelectListItem(){Text = "Hindi", Value = "2",Group = group1},
+                new SelectListItem(){Text = "Telugu", Value = "3", Group = group2},
+                new SelectListItem(){Text = "French", Value = "4", Group = group2},
+                new SelectListItem(){Text = "Tamil", Value = "5", Group = group3},
+                new SelectListItem(){Text = "Urdu", Value = "6", Group = group3},
+            };
 
             //ViewBag.IsSuccess = false;                                                                           //these two lines are used to not to show error if modelstate is not valid incase we not entered any data in addnew book form and submitted directly.
             //ViewBag.BookId = 0;                                                                                  // we can also fix this by writning "false" for viewbag.IsSuccess in addnewbook html view.so am commenting these lines
