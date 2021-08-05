@@ -16,7 +16,7 @@
 
 
 <form method="post" asp-action="AddNewBook" asp-controller="Book">
-    <div asp-validation-summary="All" class="text-danger"></div>        @*we also have (ModelOnly (this for custom errors)&None(no error showed) &All(shows model property errors and custom errors)) we use these to show validation errors at top at one place this is other way to display validation errors. custom error written in model validation(BookController).*@
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>        @*we also have (All (all error msgs including model validtion errors)ModelOnly (this for custom errors)&None(no error showed) &All(shows model property errors and custom errors)) we use these to show validation errors at top at one place this is other way to display validation errors. custom error written in model validation(BookController).*@
     @*<div class="form-group">
              <label asp-for="MyField"></label>
              <input asp-for="MyField" class="form-control" />
