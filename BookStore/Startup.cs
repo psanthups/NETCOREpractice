@@ -29,7 +29,8 @@ namespace BookStore
 
             services.AddRazorPages().AddRazorRuntimeCompilation();
 #endif  
-            services.AddScoped<BookRepository, BookRepository>();
+            services.AddScoped<BookRepository, BookRepository>();                                         //here we resolving dependency using this addscoped method (dependency we used in BookRepository class)
+            services.AddScoped<LangugeRepository, LangugeRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -25,15 +25,15 @@
         </div>*@                                                            @*this is used here to how to generate a field in form using attribute model class.*@
 
         <div class="form-group">
-            <label asp-for="LanguageEnum"></label>
-            <select asp-for="LanguageEnum" class="form-control" asp-items="Html.GetEnumSelectList<LanguageEnum>()">
+            <label asp-for="LanguageId"></label>
+            <select asp-for="LanguageId" class="form-control" asp-items="Html.GetEnumSelectList<LanguageEnum>()">
                 <option value="">choose language of book</option>
                 <!--<option value="English">English(global language)</option>-->                    @*here the value="English" will be added to database data presnt in tag just for frontend*@
                 <!--<option value="French">French</option>
                 <option value="Hindi">Hindi</option>                                          @*here we using SelectList from controller so we dont need these option tags*@
                 <option value="Telugu">Telugu</option>-->
             </select>
-            <span asp-validation-for="LanguageEnum" class="text-danger"></span>
+            <span asp-validation-for="LanguageId" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="Title"></label>

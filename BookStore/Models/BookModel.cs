@@ -25,13 +25,15 @@ namespace BookStore.Models
 
         public string Categiry { get; set; }
         [Required(ErrorMessage = "Please choose language of Book")]
-        public string Language { get; set; }
-        [Required(ErrorMessage = "Please choose languages of Book")]
-        public LanguageEnum LanguageEnum { get; set; }
+        public int LanguageId { get; set; }
+        public string Language { get; set; }                              //here language holds the data of our language above languageId holds id of language
+
+        /*[Required(ErrorMessage = "Please choose languages of Book")]
+          public LanguageEnum LanguageEnum { get; set; } */               //this used to create dropdown using enum 
 
         [Required(ErrorMessage = "Please enter the total pages")]
-        [Display(Name = "Total Pages of Book")]                          //this is to display override name of field it will display "Total Pages of Book" instead of TotalPages(name of fiels).
-        public int? TotalPages { get; set; }                             //here we are using nullible(int?) integer to convert the data into int in form (total pages) into integer because its(totalpages) in string type
+        [Display(Name = "Total Pages of Book")]                           //this is to display override name of field it will display "Total Pages of Book" instead of TotalPages(name of fiels).
+        public int? TotalPages { get; set; }                              //here we are using nullible(int?) integer to convert the data into int in form (total pages) into integer because its(totalpages) in string type
 
     }
 }
