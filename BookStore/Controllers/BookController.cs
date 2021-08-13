@@ -32,8 +32,8 @@ namespace BookStore.Controllers
            data.Name = "hurrey";*/  // this is for dynamic data use without using @model directive so that we can acces data in sntx of : @Model.book.Id(or)Author...
 
             
-            var data =await _bookRepository.GetBookById(id);
-            return View(data);
+            var dataa =await _bookRepository.GetBookById(id);
+            return View(dataa);
         }
         public List<BookModel> SearchBooks(string bookName, string authorName)
         {
@@ -42,10 +42,10 @@ namespace BookStore.Controllers
 
         public async Task<ViewResult> AddNewBook(bool isSuccess = false, int bookId = 0)
         {
-            var model = new BookModel()                                        /*here we are passing tha language of the book by default to english (WeakReference are passing this byte controller)*/
-            {                                                                  //and we have pass this var model in below view method(return view(MethodAccessException))
-                //Language = "1"
-            };
+            var model = new BookModel();                                        /*here we are passing tha language of the book by default to english (WeakReference are passing this byte controller)*/
+            //{                                                                  //and we have pass this var model in below view method(return view(MethodAccessException))
+            //    //Language = "1"
+            //};
 
             ViewBag.Language =new SelectList(await _languageRepository.GetLanguages(), "Id", "Name");           //using this viewbag we pass the data to view(addnewbook.html) and stores value into "Id" and Text into "Name". we should use this code line in both post and get methods
 

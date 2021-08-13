@@ -22,11 +22,11 @@
              <label asp-for="MyField"></label>
              <input asp-for="MyField" class="form-control" />
              <span asp-validation-for="MyField" class="text-danger"></span>
-        </div>*@                                                            @*this is used here to how to generate a field in form using attribute model class.*@
+        </div>*@                                                               @*this is used here to how to generate a field in form using attribute model class.*@
 
         <div class="form-group">
             <label asp-for="LanguageId"></label>
-            <select asp-for="LanguageId" class="form-control" asp-items="Html.GetEnumSelectList<LanguageEnum>()">
+            <select asp-for="LanguageId" class="form-control" asp-items="ViewBag.Language">
                 <option value="">choose language of book</option>
                 <!--<option value="English">English(global language)</option>-->                    @*here the value="English" will be added to database data presnt in tag just for frontend*@
                 <!--<option value="French">French</option>

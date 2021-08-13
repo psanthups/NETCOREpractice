@@ -47,7 +47,7 @@ namespace BookStore.Repository
                         Description = book.Description,
                         Id = book.Id,
                         LanguageId = book.LanguageId,
-                        Language = book.Language.Name,                                  //to get the data of this language we use this here. Here we using navigation property cause we created relationship (or we can use "join" if not created relationship). same(codeline) do in getbookbyid method below
+                       /* Language = book.Language.Name,*/                /*not needed*/                //to get the data of this language we use this here. Here we using navigation property cause we created relationship (or we can use "join" if not created relationship). same(codeline) do in getbookbyid method below
                         Title = book.Title,
                         TotalPages = book.TotalPages
                     });
@@ -58,7 +58,7 @@ namespace BookStore.Repository
         }
         public async Task<BookModel> GetBookById(int id)
         {
-            var book = await _context.Books.Where(x => x.Id == id)
+           return await _context.Books.Where(x => x.Id == id)
                 .Select(book => new BookModel()
                 {
                     Author = book.Author,
@@ -73,7 +73,7 @@ namespace BookStore.Repository
 
             //_context.Books.Where(x => x.Id == id).FirstOrDefault();
            
-            return null;
+           
         }
         public List<BookModel> SearchBook(string Title, string AuthorName)
         {
