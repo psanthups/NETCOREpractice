@@ -15,49 +15,65 @@
         </div>
     }
 
+    <!--<div class="d-flex justify-content-center">-->                                                               <!--this is a bootstrap loader we use this with data-ajax attribute in form tag along with other ajax attributes
+    <div class="spinner-border" role="status" id="myLoader" style="display:none">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>-->
+    @*data-ajax="true" data-ajax-complete="myComplete" data-ajax-loading="#myLoader"                            //these are ajax attributes used inside form (after metho=post) it is included above loader attribute also*@
 
-<form method="post" asp-action="AddNewBook" asp-controller="Book">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>        @*we also have (All (all error msgs including model validtion errors)ModelOnly (this for custom errors)&None(no error showed) &All(shows model property errors and custom errors)) we use these to show validation errors at top at one place this is other way to display validation errors. custom error written in model validation(BookController).*@
-    @*<div class="form-group">
-             <label asp-for="MyField"></label>
-             <input asp-for="MyField" class="form-control" />
-             <span asp-validation-for="MyField" class="text-danger"></span>
-        </div>*@                                                            @*this is used here to how to generate a field in form using attribute model class.*@
+    <form method="post" asp-action="AddNewBook" asp-controller="Book">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>                                      @*we also have (All (all error msgs including model validtion errors)ModelOnly (this for custom errors)&None(no error showed) &All(shows model property errors and custom errors)) we use these to show validation errors at top at one place this is other way to display validation errors. custom error written in model validation(BookController).*@
+        @*<div class="form-group">
+                 <label asp-for="MyField"></label>
+                 <input asp-for="MyField" class="form-control" />
+                 <span asp-validation-for="MyField" class="text-danger"></span>
+            </div>*@                                                                                            @*this is used here to how to generate a field in form using attribute model class.*@
 
-        <div class="form-group">
-            <label asp-for="LanguageId"></label>
-            <select asp-for="LanguageId" class="form-control" asp-items="ViewBag.Language">
-                <option value="">choose language of book</option>
-                <!--<option value="English">English(global language)</option>-->                    @*here the value="English" will be added to database data presnt in tag just for frontend*@
-                <!--<option value="French">French</option>
-                <option value="Hindi">Hindi</option>                                          @*here we using SelectList from controller so we dont need these option tags*@
-                <option value="Telugu">Telugu</option>-->
-            </select>
-            <span asp-validation-for="LanguageId" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Title"></label>
-            <input asp-for="Title" class="form-control" />
-            <span asp-validation-for="Title" class="text-danger"></span>    @*this tag used only to display the validation error if we use other tags it will not visible*@
-        </div>
-        <div class="form-group">
-            <label asp-for="Author"></label>
-            <input asp-for="Author" class="form-control" />
-            <span asp-validation-for="Author" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Description"></label>
-            <textarea asp-for="Description" class="form-control"></textarea>
-            <span asp-validation-for="Description" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="TotalPages"></label>
-            <input asp-for="TotalPages" class="form-control" />
-            <span asp-validation-for="TotalPages" class="text-danger"></span>
-        </div>
-        <br />
-        <div class="form-group">
-            <input type="submit" value="Add book" class="btn btn-primary" />
-        </div>
-    </form>
-</div>
+            <div class="form-group">
+                <label asp-for="LanguageId"></label>
+                <select asp-for="LanguageId" class="form-control" asp-items="ViewBag.Language">
+                    <option value="">choose language of book</option>
+                    <!--<option value="English">English(global language)</option>-->                             @*here the value="English" will be added to database data presnt in tag just for frontend*@
+                    <!--<option value="French">French</option>
+                    <option value="Hindi">Hindi</option>                                                         @*here we using SelectList from controller so we dont need these option tags*@
+                    <option value="Telugu">Telugu</option>-->
+                </select>
+                <span asp-validation-for="LanguageId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Title"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>                                     @*this tag used only to display the validation error if we use other tags it will not visible*@
+            </div>
+            <div class="form-group">
+                <label asp-for="Author"></label>
+                <input asp-for="Author" class="form-control" />
+                <span asp-validation-for="Author" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalPages"></label>
+                <input asp-for="TotalPages" class="form-control" />
+                <span asp-validation-for="TotalPages" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Add book" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+
+
+@*@section scripts { 
+ <script>
+     function myComplete(datta) {
+         alert("I am from Complete");
+         console.log(datta);
+     }
+ </script>
+}*@

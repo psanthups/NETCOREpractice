@@ -28,6 +28,12 @@ namespace BookStore
 #if DEBUG
 
             services.AddRazorPages().AddRazorRuntimeCompilation();
+
+            //uncomment this code to disable the clientside validation (add it at end of above services line)
+            //    .AddViewOptions(option =>
+            //{
+            //    option.HtmlHelperOptions.ClientValidationEnabled = false;
+            //});
 #endif  
             services.AddScoped<BookRepository, BookRepository>();                                         //here we resolving dependency using this addscoped method (dependency we used in BookRepository class)
             services.AddScoped<LangugeRepository, LangugeRepository>();
