@@ -22,7 +22,7 @@ namespace BookStore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<BookStoreContext>(
-                options => options.UseSqlServer("Server=RAVIKUMAR-PC;Database=BookStore;Integrated Security=True;"));
+                options => options.UseSqlServer("Server=RAVIKUMAR-PC\\SQLEXPRESS;Database=BookStore;Integrated Security=True;"));
 
             services.AddControllersWithViews();
 #if DEBUG
