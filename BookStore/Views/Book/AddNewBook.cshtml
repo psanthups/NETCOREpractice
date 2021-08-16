@@ -22,7 +22,7 @@
     </div>-->
     @*data-ajax="true" data-ajax-complete="myComplete" data-ajax-loading="#myLoader"                            //these are ajax attributes used inside form (after metho=post) it is included above loader attribute also*@
 
-    <form method="post" asp-action="AddNewBook" asp-controller="Book">
+    <form method="post" enctype="multipart/form-data" asp-action="AddNewBook" asp-controller="Book">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>                                      @*we also have (All (all error msgs including model validtion errors)ModelOnly (this for custom errors)&None(no error showed) &All(shows model property errors and custom errors)) we use these to show validation errors at top at one place this is other way to display validation errors. custom error written in model validation(BookController).*@
         @*<div class="form-group">
                  <label asp-for="MyField"></label>
@@ -61,19 +61,30 @@
                 <input asp-for="TotalPages" class="form-control" />
                 <span asp-validation-for="TotalPages" class="text-danger"></span>
             </div>
-            <br />
+            <div class="form-group">
+                <label asp-for="CoverPhoto"></label>
+                <div class="custom-file">
+                    <input asp-for="CoverPhoto" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+                <span asp-validation-for="CoverPhoto" class="text-danger"></span>                                     @*this tag used only to display the validation error if we use other tags it will not visible*@
+            </div>
+
+            <br /> 
             <div class="form-group">
                 <input type="submit" value="Add book" class="btn btn-primary" />
             </div>
-        </form>
-    </div>
+    </form>
+
+</div>
 
 
-@*@section scripts { 
- <script>
-     function myComplete(datta) {
-         alert("I am from Complete");
-         console.log(datta);
-     }
- </script>
-}*@
+    @*this is from ajax jquery for above attributes in form method=post*@
+    @*<script>
+
+            function myComplete() {
+                alert("I am from Complete");
+                //console.log(datta);
+            }
+        
+    </script>*@

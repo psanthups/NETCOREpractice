@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using BookStore.Enums;
 using BookStore.Helpers;
+using Microsoft.AspNetCore.Http;
 
 namespace BookStore.Models
 {
@@ -37,5 +38,8 @@ namespace BookStore.Models
         [Display(Name = "Total Pages of Book")]                           //this is to display override name of field it will display "Total Pages of Book" instead of TotalPages(name of fiels).
         public int? TotalPages { get; set; }                              //here we are using nullible(int?) integer to convert the data into int in form (total pages) into integer because its(totalpages) in string type
 
+        [Display(Name = "Choose the covet photo of Book")]
+        [Required]
+        public IFormFile CoverPhoto { get; set; }                                  //this property holds the deatails of image(path url) its a special type(IFomFile) its included in mvc.HTTP namespace
     }
 }
