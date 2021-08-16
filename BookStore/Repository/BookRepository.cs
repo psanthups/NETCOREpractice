@@ -24,9 +24,21 @@ namespace BookStore.Repository
                 Description = model.Description,
                 Title = model.Title,
                 LanguageId = model.LanguageId,
-                TotalPages = model.TotalPages.HasValue ? model.TotalPages.Value : 0, //here from ".hasvalue" we wrote this to convert the nullible value into int by asking hasvalue? if no the totalpages value is 0. other wise we get error as nullible value con't convert
-                UpdatedOn = DateTime.UtcNow
+                TotalPages = model.TotalPages.HasValue ? model.TotalPages.Value : 0,                           //here from ".hasvalue" we wrote this to convert the nullible value into int by asking hasvalue? if no the totalpages value is 0. other wise we get error as nullible value con't convert
+                UpdatedOn = DateTime.UtcNow,
+                CoverImageUrl = model.CoverImageUrl
             };
+
+            newBook.bookGallery = new List<BookGallery>();
+            foreach (var file in model.Gallery)
+            {
+                newBook.bookGallery.Add(new BookGallery()
+                {
+                    Name = file.Name,
+                    URL = file.URL
+                });
+            }
+
            await _context.Books.AddAsync(newBook);
            await _context.SaveChangesAsync();
             return newBook.Id;
@@ -49,7 +61,9 @@ namespace BookStore.Repository
                         LanguageId = book.LanguageId,
                         /* Language = book.Language.Name,*/                /*not needed*/                //to get the data of this language we use this here. Here we using navigation property cause we created relationship (or we can use "join" if not created relationship). same(codeline) do in getbookbyid method below
                         Title = book.Title,
-                        TotalPages = book.TotalPages
+                        TotalPages = book.TotalPages,
+                        CoverImageUrl = book.CoverImageUrl
+                        
                     });
                 }
 
@@ -62,14 +76,21 @@ namespace BookStore.Repository
                  .Select(book => new BookModel()
                  {
                      Author = book.Author,
-                    Categiry = book.Categiry,
-                    Description = book.Description,
-                    Id = book.Id,
-                    LanguageId = book.LanguageId,
-                    Language = book.Language.Name,                                                //to get the data of this language we use this here. Here we using navigation property cause we created relationship (or we can use "join" if not created relationship). same(codeline) done in above getallbooks method
-                    Title = book.Title,
-                    TotalPages = book.TotalPages
-                }).FirstOrDefaultAsync();
+                     Categiry = book.Categiry,
+                     Description = book.Description,
+                     Id = book.Id,
+                     LanguageId = book.LanguageId,
+                     Language = book.Language.Name,                                                //to get the data of this language we use this here. Here we using navigation property cause we created relationship (or we can use "join" if not created relationship). same(codeline) done in above getallbooks method
+                     Title = book.Title,
+                     TotalPages = book.TotalPages,
+                     CoverImageUrl = book.CoverImageUrl,
+                     Gallery = book.bookGallery.Select(g => new GalleryModel()
+                     {
+                         Id = g.Id,
+                         Name = g.Name,
+                         URL = g.URL 
+                     }).ToList()
+                 }).FirstOrDefaultAsync();
 
             //_context.Books.Where(x => x.Id == id).FirstOrDefault();
            

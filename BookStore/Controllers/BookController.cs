@@ -1,6 +1,7 @@
 ﻿using BookStore.Models;
 using BookStore.Repository;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -80,10 +81,24 @@ namespace BookStore.Controllers
                 if (bookModel.CoverPhoto != null)                                                                     //this logic is to save tha path of the folder to save images. and guid is to get uniq name for imgs as its not take multi imgs with same name
                 {
                     string folder = "books/cover/";
-                    folder += Guid.NewGuid().ToString() + "_" + bookModel.CoverPhoto.FileName;
-                    string serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
+                    bookModel.CoverImageUrl = await UploadImage(folder, bookModel.CoverPhoto);
+                }
 
-                    await bookModel.CoverPhoto.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
+                if (bookModel.GalleryFiles != null)                                                                     //this logic is to save tha path of the folder to save images. and guid is to get uniq name for imgs as its not take multi imgs with same name
+                {
+                    string folder = "books/gallery/";
+
+                    bookModel.Gallery = new List<GalleryModel>();
+
+                    foreach (var file in bookModel.GalleryFiles)                                                      //this method is going to returns the url of the perticuler images. (in order to save these urls into database we need to store it in other class (GalleryModel.cs)
+                    {
+                        var gallery = new GalleryModel()
+                        {
+                            Name = file.FileName,
+                            URL = await UploadImage(folder, file)
+                        };
+                        bookModel.Gallery.Add(gallery);
+                    }
                 }
 
                 int id = await _bookRepository.AddNewBook(bookModel);
@@ -115,14 +130,27 @@ namespace BookStore.Controllers
             //ModelState.AddModelError("", "this is custom error");                                                //this is custom error using validation summar. here we have to pass 2 parameters 1 is key(if we dont have kepp it blank like here) and other is error msg which we want to display.
             return View();
         }
-       /* private List<LanguageModel> GetLanguage()                                                                  //this private get languge method created to pass this function properties (text and id) to the dropdown using this method using viewbag property in get and post addnewbook action methods.
-        {                                                                                                            //we commented this cause now we are getting language data from databse by changing the LanguageModel class properties(Id and Text are previous properties) 
-            return new List<LanguageModel>()
-            {
-            new LanguageModel() { Id = 1, Text = "English" },
-            new LanguageModel() { Id = 2, Text = "Hindi" },
-            new LanguageModel() { Id = 3, Text = "Telugu" }
-            };
-        }*/
+
+        private async Task<string> UploadImage(string folderPath, IFormFile file)                                  /*this method will get the path in a parameter. then append name of the file. then we are combining it with server path. and we are uploading tha file and returning the actual path of the file.*/
+        {
+
+            folderPath += Guid.NewGuid().ToString() + "_" + file.FileName;
+
+            string serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, folderPath);
+
+            await file.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
+
+            return "/" + folderPath;
+        }
+
+          /* private List<LanguageModel> GetLanguage()                                                                  //this private get languge method created to pass this function properties (text and id) to the dropdown using this method using viewbag property in get and post addnewbook action methods.
+             {                                                                                                                        //we commented this cause now we are getting language data from databse by changing the LanguageModel class properties(Id and Text are previous properties) 
+                 return new List<LanguageModel>()
+                 {
+                    new LanguageModel() { Id = 1, Text = "English" },
+                    new LanguageModel() { Id = 2, Text = "Hindi" },
+                    new LanguageModel() { Id = 3, Text = "Telugu" }
+                 };
+             }*/
     } 
 }

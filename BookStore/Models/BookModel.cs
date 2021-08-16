@@ -41,5 +41,13 @@ namespace BookStore.Models
         [Display(Name = "Choose the covet photo of Book")]
         [Required]
         public IFormFile CoverPhoto { get; set; }                                  //this property holds the deatails of image(path url) its a special type(IFomFile) its included in mvc.HTTP namespace
+        
+        public string CoverImageUrl { get; set; }                                  //this for create column in database in books table
+
+        [Display(Name = "Choose the gallery images of Book")]
+        [Required]
+        public IFormFileCollection GalleryFiles { get; set; }                      //this is to get multiple images into database
+
+        public List<GalleryModel> Gallery { get; set; }                             //using the GalleryModel cs in this class to use it in controller
     }
 }
