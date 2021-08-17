@@ -37,50 +37,37 @@
 
 
 <div class="container">
-    @*<h3 class="h3">Top Books</h3>*@
-    <big>Top Books</big>
+    <h3 class="h3">Top Books</h3>
+    @*<big>Top Books</big>*@                                                                                 @*here (both lines) we are overriding the existing html(big tag) using bigtaghelper.cs class.*@
     @*<p big>Top Books using Attribute</p>*@
+
+    @*@await Component.InvokeAsync("TopBooks")*@
+    <vc:top-books></vc:top-books>
+
     <div class="row">
 
         <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-                <img src="~/images/1.2.png" width="348" height="190" />
-                <div class="card-body">
-                    <h5 class="card-title"> card Title</h5>
-                    <p class="card-text">This section will be used to display about book</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <a href="#" class="btn btn-primary">Details</a>
-                    </div>
-                    <small class="text-muted"> Authour name</small>
-                </div>
-            </div>
+            @*<partial name="_bookThumbnail" model="new BookModel()"/>*@                                     @*this is the actual and most recomended partial view*@
+            @Html.Partial("_bookThumbnail", new BookModel())                                                 @*these are the ways to render partial views into a view(i used each way in each div) commented one is taghelper partial view.*@
         </div>
         <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-                <img src="~/images/1.2.png" width="348" height="190" />
-                <div class="card-body">
-                    <h5 class="card-title"> card Title</h5>
-                    <p class="card-text">This section will be used to display about book</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <a href="#" class="btn btn-primary">Details</a>
-                    </div>
-                    <small class="text-muted"> Authour name</small>
-                </div>
-            </div>
+            @*<partial name="_bookThumbnail" model="new BookModel()" />*@
+            @await Html.PartialAsync("_bookThumbnail", new BookModel())
         </div>
         <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-                <img src="~/images/1.2.png" width="348" height="190" />
-                <div class="card-body">
-                    <h5 class="card-title"> card Title</h5>
-                    <p class="card-text">This section will be used to display about book</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <a href="#" class="btn btn-primary">Details</a>
-                    </div>
-                    <small class="text-muted"> Authour name</small>
-                </div>
-            </div>
+            @*<partial name="_bookThumbnail" model="new BookModel()" />*@
+            @{
+              Html.RenderPartial("_bookThumbnail", new BookModel());
+             }
         </div>
+        <div class="col-md-4">
+            @*<partial name="_bookThumbnail" model="new BookModel()" />*@
+            @{
+              Html.RenderPartialAsync("_bookThumbnail", new BookModel());
+             }
+        </div>
+
+
         @section script1{
                 <script>
                     $(document).ready(function() {

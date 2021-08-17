@@ -19,12 +19,14 @@ namespace BookStore.Data
 
         public int TotalPages { get; set; }
 
-        public string CoverImageUrl { get; set; }
+        public string CoverImageUrl { get; set; }                                                                       /*here we are url properties to save the urls into db*/ 
+
+        public string BookPdfUrl { get; set; }
 
         public DateTime? CreatedOn { get; set; }
 
         public DateTime? UpdatedOn { get; set; }
-        public Language  Language { get; set; }                                                     /* here using this we creating relationship between books ang language table*/
-        public ICollection<BookGallery> bookGallery { get; set; }                                   /* here using this we creating relationship between books ang bookgallery table*/
+        public Language  Language { get; set; }                                                                         /* here using this we creating relationship between books ang language table*/
+        public ICollection<BookGallery> bookGallery { get; set; }                                                       /* here using this we creating relationship between books ang bookgallery table*/
     }
 }

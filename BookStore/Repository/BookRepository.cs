@@ -26,7 +26,8 @@ namespace BookStore.Repository
                 LanguageId = model.LanguageId,
                 TotalPages = model.TotalPages.HasValue ? model.TotalPages.Value : 0,                           //here from ".hasvalue" we wrote this to convert the nullible value into int by asking hasvalue? if no the totalpages value is 0. other wise we get error as nullible value con't convert
                 UpdatedOn = DateTime.UtcNow,
-                CoverImageUrl = model.CoverImageUrl
+                CoverImageUrl = model.CoverImageUrl,
+                BookPdfUrl = model.BookPdfUrl
             };
 
             newBook.bookGallery = new List<BookGallery>();
@@ -89,7 +90,8 @@ namespace BookStore.Repository
                          Id = g.Id,
                          Name = g.Name,
                          URL = g.URL 
-                     }).ToList()
+                     }).ToList(),
+                     BookPdfUrl = book.BookPdfUrl
                  }).FirstOrDefaultAsync();
 
             //_context.Books.Where(x => x.Id == id).FirstOrDefault();

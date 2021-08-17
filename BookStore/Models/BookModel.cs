@@ -49,5 +49,11 @@ namespace BookStore.Models
         public IFormFileCollection GalleryFiles { get; set; }                      //this is to get multiple images into database
 
         public List<GalleryModel> Gallery { get; set; }                             //using the GalleryModel cs in this class to use it in controller
+
+        [Display(Name = "upload your Book in pdf farmat")]
+        [Required]
+        public IFormFile BookPdf { get; set; }                                    //this property holds the deatails of bookpdf(path url) its a special type(IFomFile) its included in mvc.HTTP namespace
+
+        public string BookPdfUrl { get; set; }                                   //this for create column in database in books table
     }
 }

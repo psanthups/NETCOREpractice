@@ -101,6 +101,12 @@ namespace BookStore.Controllers
                     }
                 }
 
+                if (bookModel.BookPdf != null)                                                                     //this logic is to save tha path of the folder to save images. and guid is to get uniq name for imgs as its not take multi imgs with same name
+                {
+                    string folder = "books/pdf/";
+                    bookModel.BookPdfUrl = await UploadImage(folder, bookModel.BookPdf);
+                }
+
                 int id = await _bookRepository.AddNewBook(bookModel);
                 if (id > 0)
                 {
