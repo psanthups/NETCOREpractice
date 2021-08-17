@@ -38,8 +38,8 @@ namespace BookStore.Controllers
            data.Name = "hurrey";*/                                                                               // this is for dynamic data use without using @model directive so that we can acces data in sntx of : @Model.book.Id(or)Author...
 
             
-            var dataa =await _bookRepository.GetBookById(id);
-            return View(dataa);
+            var data = await _bookRepository.GetBookById(id);
+            return View(data);
         }
         public List<BookModel> SearchBooks(string bookName, string authorName)
         {

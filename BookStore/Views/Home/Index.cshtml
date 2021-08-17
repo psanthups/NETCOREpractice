@@ -1,12 +1,12 @@
-﻿@*@{ 
-    dynamic data = ViewBag.Data;//for viewBag here we have mention the dynamic data type for complex viewBag code like using viewBag in BookModel data type
-    var Bookinfo = ViewData["Book"] as BookModel;//for viewData here we have cast the data and datatype for complex viewData code like using viewData in BookModel data type
-    
-}*@
+﻿@*@{
+        dynamic data = ViewBag.Data;//for viewBag here we have mention the dynamic data type for complex viewBag code like using viewBag in BookModel data type
+        var Bookinfo = ViewData["Book"] as BookModel;//for viewData here we have cast the data and datatype for complex viewData code like using viewData in BookModel data type
+
+    }*@
 @{
     var look = ViewData["book"] as BookModel;
     ViewData["HeadTitle"] = "Home";
-            }
+}
 
 
 <section class=" jumbotron text-center">
@@ -15,16 +15,16 @@
         <p>
 
             @*  @data.Id <br />
-        @data.Name <br />
-        Id=@ViewBag.Type.Id <br />
-        Name = @ViewBag.Type.Author<br />
+                @data.Name <br />
+                Id=@ViewBag.Type.Id <br />
+                Name = @ViewBag.Type.Author<br />
 
 
-        Id=@Bookinfo.Id <br />
-        Name= @Bookinfo.Author<br />
-            @ViewData["Title"] <br />
-            Id = @look.Id <br />
-            Name = @look.Author <br />*@
+                Id=@Bookinfo.Id <br />
+                Name= @Bookinfo.Author<br />
+                    @ViewData["Title"] <br />
+                    Id = @look.Id <br />
+                    Name = @look.Author <br />*@
 
             This is a book apllication here you get all kind of books.
             whatever you want can order through this website
@@ -38,45 +38,21 @@
 
 <div class="container">
     <h3 class="h3">Top Books</h3>
-    @*<big>Top Books</big>*@                                                                                 @*here (both lines) we are overriding the existing html(big tag) using bigtaghelper.cs class.*@
+    @*<big>Top Books</big>*@                                                                                               @*here (both lines) we are overriding the existing html(big tag) using bigtaghelper.cs class.*@
     @*<p big>Top Books using Attribute</p>*@
 
-    @*@await Component.InvokeAsync("TopBooks")*@
-    <vc:top-books></vc:top-books>
+    @await Component.InvokeAsync("TopBooks", new { count = 3})                                                             @*these two lines(two ways of using components on view) are from view components(default.cshtml and Topbookviewcomponent file) rendering data or (data from db) using view components.latest included parameter(we can pass n parameters)*@
+    @*<vc:top-books count="3"></vc:top-books>*@
 
-    <div class="row">
-
-        <div class="col-md-4">
-            @*<partial name="_bookThumbnail" model="new BookModel()"/>*@                                     @*this is the actual and most recomended partial view*@
-            @Html.Partial("_bookThumbnail", new BookModel())                                                 @*these are the ways to render partial views into a view(i used each way in each div) commented one is taghelper partial view.*@
-        </div>
-        <div class="col-md-4">
-            @*<partial name="_bookThumbnail" model="new BookModel()" />*@
-            @await Html.PartialAsync("_bookThumbnail", new BookModel())
-        </div>
-        <div class="col-md-4">
-            @*<partial name="_bookThumbnail" model="new BookModel()" />*@
-            @{
-              Html.RenderPartial("_bookThumbnail", new BookModel());
-             }
-        </div>
-        <div class="col-md-4">
-            @*<partial name="_bookThumbnail" model="new BookModel()" />*@
-            @{
-              Html.RenderPartialAsync("_bookThumbnail", new BookModel());
-             }
-        </div>
-
-
-        @section script1{
-                <script>
-                    $(document).ready(function() {
-                        //alert("document is ready");
-                    })
-                </script>
-            }
-
-
-    </div>
-
+    
 </div>
+
+
+@section script1{
+    <script>
+        $(document).ready(function () {
+            //alert("document is ready");
+        })
+    </script>
+}
+

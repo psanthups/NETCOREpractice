@@ -47,30 +47,40 @@ namespace BookStore.Repository
 
         public async Task<List<BookModel>> GetAllBooks()
         {
-            var books = new List<BookModel>();
-            var allbooks = await _context.Books.ToListAsync();
-            if (allbooks?.Any() == true)
-            {
-                foreach (var book in allbooks)
+            return await _context.Books
+                .Select(book => new BookModel()
                 {
-                    books.Add(new BookModel()
-                    {
-                        Author = book.Author,
-                        Categiry = book.Categiry,
-                        Description = book.Description,
-                        Id = book.Id,
-                        LanguageId = book.LanguageId,
-                        /* Language = book.Language.Name,*/                /*not needed*/                //to get the data of this language we use this here. Here we using navigation property cause we created relationship (or we can use "join" if not created relationship). same(codeline) do in getbookbyid method below
-                        Title = book.Title,
-                        TotalPages = book.TotalPages,
-                        CoverImageUrl = book.CoverImageUrl
-                        
-                    });
-                }
+                    Author = book.Author,
+                    Categiry = book.Categiry,
+                    Description = book.Description,
+                    Id = book.Id,
+                    LanguageId = book.LanguageId,
+                    Language = book.Language.Name,                                               //to get the data of this language we use this here. Here we using navigation property cause we created relationship (or we can use "join" if not created relationship). same(codeline) do in getbookbyid method below
+                    Title = book.Title,
+                    TotalPages = book.TotalPages,
+                    CoverImageUrl = book.CoverImageUrl
 
-            }
-            return books;
+                }).ToListAsync();
         }
+
+        public async Task<List<BookModel>> GetTopBooksAsync(int count)
+        {
+            return await _context.Books
+                .Select(book => new BookModel()
+                {
+                    Author = book.Author,
+                    Categiry = book.Categiry,
+                    Description = book.Description,
+                    Id = book.Id,
+                    LanguageId = book.LanguageId,
+                    Language = book.Language.Name,                                               //to get the data of this language we use this here. Here we using navigation property cause we created relationship (or we can use "join" if not created relationship). same(codeline) do in getbookbyid method below
+                    Title = book.Title,
+                    TotalPages = book.TotalPages,
+                    CoverImageUrl = book.CoverImageUrl
+
+                }).Take(count).ToListAsync();
+        }
+
         public async Task<BookModel> GetBookById(int id)
         {
             return await _context.Books.Where(x => x.Id == id)

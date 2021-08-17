@@ -1,1 +1,20 @@
-﻿<h3>hello from view components</h3>
+﻿@model IEnumerable<BookModel>
+<div class="row">
+    @foreach (var book in Model)
+    {
+        <div class="col-md-4">
+            <partial name="_bookThumbnail" model="book" />                                                        @*this is the actual and most recomended partial view its a taghelper partial view*@
+
+            @*@Html.Partial("_bookThumbnail", new BookModel())*@                                                  @*these are the ways to render partial views into a view(i used each way of code in each div before modifieng code) commented*@
+            @*@await Html.PartialAsync("_bookThumbnail", new BookModel())*@
+            @*@{
+                    Html.RenderPartial("_bookThumbnail", new BookModel());
+                }*@
+            @*@{
+                    Html.RenderPartialAsync("_bookThumbnail", new BookModel());
+                }*@
+        </div>
+    }
+
+
+</div>

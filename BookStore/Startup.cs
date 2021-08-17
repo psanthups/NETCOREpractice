@@ -61,10 +61,15 @@ namespace BookStore
              {
                  endpoints.MapDefaultControllerRoute();
 
-                /* endpoints.MapControllerRoute(                                                                            //this route is used to get Below "BookApp" after the localhost as manual route to get whatever name should present in that url after localhost
-                     name : "default",     
-                     pattern : "BookApp/{controller=Home}/{Action=Index}/{Id?}");*/
-                 
+                 /* endpoints.MapControllerRoute(                                                                            //this route is used to get Below "BookApp" after the localhost as manual route to get whatever name should present in that url after localhost
+                      name : "default",     
+                      pattern : "BookApp/{controller=Home}/{Action=Index}/{Id?}");*/
+
+                 endpoints.MapControllerRoute(                                                                            //this route is used to get Below "BookApp" after the localhost as manual route to get whatever name should present in that url after localhost
+                     name: "default",
+                     pattern: "About-us/{id?}",
+                     defaults: new {controller = "Home", action = "Aboutus" });
+
                  /*Get("/", async context =>                                                                                //it is the default route we get when we create a project of mvc
                  {
                      await context.Response.WriteAsync("Hello World!");
