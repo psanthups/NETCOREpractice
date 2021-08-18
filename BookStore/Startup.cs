@@ -59,16 +59,18 @@ namespace BookStore
 
              app.UseEndpoints(endpoints =>
              {
+
+                 //endpoints.MapControllers();
                  endpoints.MapDefaultControllerRoute();
 
                  /* endpoints.MapControllerRoute(                                                                            //this route is used to get Below "BookApp" after the localhost as manual route to get whatever name should present in that url after localhost
                       name : "default",     
                       pattern : "BookApp/{controller=Home}/{Action=Index}/{Id?}");*/
 
-                 endpoints.MapControllerRoute(                                                                            //this route is used to get Below "BookApp" after the localhost as manual route to get whatever name should present in that url after localhost
-                     name: "default",
-                     pattern: "About-us/{id?}",
-                     defaults: new {controller = "Home", action = "Aboutus" });
+                 //endpoints.MapControllerRoute(                                                                            //this is a conventional routing here we get the page using just "About-us" after local host. here no need mention controller ofter localhost. 
+                 //    name: "default",                                                                                       //we can do this easily by attribute routing where we no need to write these three lines of code.in attribute route we simply write [Route("about-us")] before action method.
+                 //    pattern: "About-us/{id?}",
+                 //    defaults: new { controller = "Home", action = "Aboutus" });
 
                  /*Get("/", async context =>                                                                                //it is the default route we get when we create a project of mvc
                  {

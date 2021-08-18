@@ -8,12 +8,15 @@ using BookStore.Models;
 
 namespace BookStore.Controllers
 {
+    //[Route("[controller]/[action]")]
     public class HomeController : Controller
     {
        /* [ViewData]
         public string Title { get; set; }
         [ViewData]
         public BookModel book { get; set; }*/
+
+        [Route("")]
         public ViewResult Index()
         {
            
@@ -22,6 +25,8 @@ namespace BookStore.Controllers
 
             return View();
         }
+
+        [Route("~/About-us")]
         public ViewResult Aboutus()
         {
             return View();

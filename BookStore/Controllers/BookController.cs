@@ -12,25 +12,30 @@ using System.Threading.Tasks;
 
 namespace BookStore.Controllers
 {
+    //[Route("[controller]/[action]")]
+
     public class BookController : Controller
     {
         private readonly BookRepository _bookRepository = null;
         private readonly LangugeRepository _languageRepository = null;
         private readonly IWebHostEnvironment _webHostEnvironment;
         public BookController(BookRepository bookRepository,
-            LangugeRepository languageRepository, IWebHostEnvironment webHostEnvironment)         //here we are resolving the dependency into the controller in paranthesis
+            LangugeRepository languageRepository, IWebHostEnvironment webHostEnvironment)                        //here we are resolving the dependency into the controller in paranthesis
         {
             _bookRepository = bookRepository;
             _languageRepository = languageRepository;
             _webHostEnvironment = webHostEnvironment;
         }
+
+        [Route("all-books")]
         public async Task<ViewResult> GetAllBooks()
         {
            var data = await _bookRepository.GetAllBooks();
           
             return View(data);
         }
-        //[Route("book-details/{id}", Name ="bookdetailsrouting")]                                               //this used to pass custom url by tag helpers we use asp-route="bookdetailsrouting" in <a> tag of this actin view so we get book details in url of that page
+
+        [Route("book-details/{id:int:min(1)}", Name = "bookDetailsRoute")]                                                 //this used to pass custom url by tag helpers we use asp-route="bookdetailsrouting" in <a> tag of this action view so we get book details in url of that page
         public async Task<ViewResult> GetBook(int id)
         {
            /* dynamic data = new System.Dynamic.ExpandoObject();
