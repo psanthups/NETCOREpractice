@@ -35,8 +35,8 @@ namespace BookStore
             //    option.HtmlHelperOptions.ClientValidationEnabled = false;
             //});
 #endif  
-            services.AddScoped<BookRepository, BookRepository>();                                                       //here we resolving dependency using this addscoped method (dependency we used in BookRepository class)
-            services.AddScoped<LangugeRepository, LangugeRepository>();
+            services.AddScoped<IBookRepository, BookRepository>();                                                       //here we resolving dependency using this addscoped method (dependency we used in BookRepository class)
+            services.AddScoped<ILangugeRepository, LangugeRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

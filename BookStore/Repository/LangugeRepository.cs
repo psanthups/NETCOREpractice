@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace BookStore.Repository
 {
-    public class LangugeRepository                                    //since Language is seperate entity we had to create this class
+    public class LangugeRepository : ILangugeRepository
+    //since Language is seperate entity we had to create this class
     {
         private readonly BookStoreContext _context = null;
         public LangugeRepository(BookStoreContext context)
@@ -22,7 +23,7 @@ namespace BookStore.Repository
             {
                 Id = x.Id,
                 Description = x.Description,
-                Name = x.Name 
+                Name = x.Name
             }).ToListAsync();
 
         }

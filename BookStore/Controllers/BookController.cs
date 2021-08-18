@@ -16,11 +16,11 @@ namespace BookStore.Controllers
 
     public class BookController : Controller
     {
-        private readonly BookRepository _bookRepository = null;
-        private readonly LangugeRepository _languageRepository = null;
+        private readonly IBookRepository _bookRepository = null;
+        private readonly ILangugeRepository _languageRepository = null;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public BookController(BookRepository bookRepository,
-            LangugeRepository languageRepository, IWebHostEnvironment webHostEnvironment)                        //here we are resolving the dependency into the controller in paranthesis
+        public BookController(IBookRepository bookRepository,
+            ILangugeRepository languageRepository, IWebHostEnvironment webHostEnvironment)                        //here we are resolving the dependency into the controller in paranthesis
         {
             _bookRepository = bookRepository;
             _languageRepository = languageRepository;
@@ -58,7 +58,8 @@ namespace BookStore.Controllers
             //    //Language = "1"
             //};
 
-            ViewBag.Language =new SelectList(await _languageRepository.GetLanguages(), "Id", "Name");           //using this viewbag we pass the data to view(addnewbook.html) and stores value into "Id" and Text into "Name". we should use this code line in both post and get methods
+            /*No need of it as We used DI directly in view(addnew book)  */
+            /*ViewBag.Language =new SelectList(await _languageRepository.GetLanguages(), "Id", "Name");*/         //using this viewbag we pass the data to view(addnewbook.html) and stores value into "Id" and Text into "Name". we should use this code line in both post and get methods
 
             //ViewBag.Language = new SelectList(GetLanguage(), "Id", "Text");                                    // this for creating adropdown using selectlist and its multiple parameters
             /* var group1 = new SelectListGroup() { Name = "Group1" };
@@ -119,7 +120,7 @@ namespace BookStore.Controllers
                 }
             }
 
-            ViewBag.Language = new SelectList(await _languageRepository.GetLanguages(), "Id", "Name");              //using this viewbag we pass the data to view(addnewbook.html) and stores value into "Id" and Text into "Name".
+            /*ViewBag.Language = new SelectList(await _languageRepository.GetLanguages(), "Id", "Name");*/              //using this viewbag we pass the data to view(addnewbook.html) and stores value into "Id" and Text into "Name".
 
             //ViewBag.Language = new SelectList(new List<string>() { "English", "Hindi", "Telugu", "French" });     //here we are passing the languages from action method controller by selectList but desabled cause we passing languages by language model by creating a private method getlanguage method (note same line there in get mothod but i removed it
             //ViewBag.Language = new SelectList(GetLanguage(), "Id", "Text");                                        //we can pass language using this selectlist in view file of select tag(inside) as we done previously by passing parameters to this selectlist.

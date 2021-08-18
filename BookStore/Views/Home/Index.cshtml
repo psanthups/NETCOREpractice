@@ -4,9 +4,10 @@
 
     }*@
 @{
-    var look = ViewData["book"] as BookModel;
+    //var look = ViewData["book"] as BookModel;
     ViewData["HeadTitle"] = "Home";
 }
+@inject BookStore.Repository.IBookRepository _bookRepository
 
 
 <section class=" jumbotron text-center">

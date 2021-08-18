@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStore.Repository
 {
-    public class BookRepository
+    public class BookRepository : IBookRepository
     {
         private readonly BookStoreContext _context = null;
         public BookRepository(BookStoreContext context)
@@ -40,8 +40,8 @@ namespace BookStore.Repository
                 });
             }
 
-           await _context.Books.AddAsync(newBook);
-           await _context.SaveChangesAsync();
+            await _context.Books.AddAsync(newBook);
+            await _context.SaveChangesAsync();
             return newBook.Id;
         }
 
@@ -99,14 +99,14 @@ namespace BookStore.Repository
                      {
                          Id = g.Id,
                          Name = g.Name,
-                         URL = g.URL 
+                         URL = g.URL
                      }).ToList(),
                      BookPdfUrl = book.BookPdfUrl
                  }).FirstOrDefaultAsync();
 
             //_context.Books.Where(x => x.Id == id).FirstOrDefault();
-           
-           
+
+
         }
         public List<BookModel> SearchBook(string Title, string AuthorName)
         {
