@@ -1,6 +1,7 @@
 ﻿using BookStore.Data;
 using BookStore.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,12 @@ namespace BookStore.Repository
     public class BookRepository : IBookRepository
     {
         private readonly BookStoreContext _context = null;
-        public BookRepository(BookStoreContext context)
+        private readonly IConfiguration _configuration;
+
+        public BookRepository(BookStoreContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
         public async Task<int> AddNewBook(BookModel model)
         {
@@ -24,7 +28,7 @@ namespace BookStore.Repository
                 Description = model.Description,
                 Title = model.Title,
                 LanguageId = model.LanguageId,
-                TotalPages = model.TotalPages.HasValue ? model.TotalPages.Value : 0,                           //here from ".hasvalue" we wrote this to convert the nullible value into int by asking hasvalue? if no the totalpages value is 0. other wise we get error as nullible value con't convert
+                TotalPages = model.TotalPages.HasValue ? model.TotalPages.Value : 0,                                        //here from ".hasvalue" we wrote this to convert the nullible value into int by asking hasvalue? if no the totalpages value is 0. other wise we get error as nullible value con't convert
                 UpdatedOn = DateTime.UtcNow,
                 CoverImageUrl = model.CoverImageUrl,
                 BookPdfUrl = model.BookPdfUrl
@@ -55,7 +59,7 @@ namespace BookStore.Repository
                     Description = book.Description,
                     Id = book.Id,
                     LanguageId = book.LanguageId,
-                    Language = book.Language.Name,                                               //to get the data of this language we use this here. Here we using navigation property cause we created relationship (or we can use "join" if not created relationship). same(codeline) do in getbookbyid method below
+                    Language = book.Language.Name,                                                                   //to get the data of this language we use this here. Here we using navigation property cause we created relationship (or we can use "join" if not created relationship). same(codeline) do in getbookbyid method below
                     Title = book.Title,
                     TotalPages = book.TotalPages,
                     CoverImageUrl = book.CoverImageUrl
@@ -73,7 +77,7 @@ namespace BookStore.Repository
                     Description = book.Description,
                     Id = book.Id,
                     LanguageId = book.LanguageId,
-                    Language = book.Language.Name,                                               //to get the data of this language we use this here. Here we using navigation property cause we created relationship (or we can use "join" if not created relationship). same(codeline) do in getbookbyid method below
+                    Language = book.Language.Name,                                                                    //to get the data of this language we use this here. Here we using navigation property cause we created relationship (or we can use "join" if not created relationship). same(codeline) do in getbookbyid method below
                     Title = book.Title,
                     TotalPages = book.TotalPages,
                     CoverImageUrl = book.CoverImageUrl
@@ -91,7 +95,7 @@ namespace BookStore.Repository
                      Description = book.Description,
                      Id = book.Id,
                      LanguageId = book.LanguageId,
-                     Language = book.Language.Name,                                                //to get the data of this language we use this here. Here we using navigation property cause we created relationship (or we can use "join" if not created relationship). same(codeline) done in above getallbooks method
+                     Language = book.Language.Name,                                                                     //to get the data of this language we use this here. Here we using navigation property cause we created relationship (or we can use "join" if not created relationship). same(codeline) done in above getallbooks method
                      Title = book.Title,
                      TotalPages = book.TotalPages,
                      CoverImageUrl = book.CoverImageUrl,
@@ -125,5 +129,12 @@ namespace BookStore.Repository
               };
 
           }*/
+
+        public string GetAppName()
+        {
+            /*return "Book Store Application";*/                                                                                       /*//using this method and this line we getting app name in header by using DI in this file and (DI in _header partial file by using @inject file path with object)*/
+            return _configuration["AppName"];                                                                                          /*here we returning app name in header using configuration from appsettingsdev json file by using key name in []. and by use namespace in header file we get this in view.*/
+        
+        }
     }
 }

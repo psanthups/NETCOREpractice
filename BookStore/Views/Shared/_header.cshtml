@@ -1,9 +1,24 @@
-﻿<header>
+﻿@*@inject BookStore.Repository.IBookRepository _bookRepo*@
+@*above line to get app name in header using Di in repository (bookrepository) and by using interface DI service with obj or field here*@
+@*same as above line just divided service(of configuration) and The namespace (wrote seperately)*@
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration _configuration
+@inject Microsoft.Extensions.Options.IOptions<NewBookAlertConfig> _newBookAlertconfiguration
+@*@{
+        var newBook = _configuration.GetSection("NewBookAlert");                                                                                               /*here we using configuration with section by doing this no need to write field name and obj name(obj in Json file)means no repitation. see diff b/w below and this line*/
+    }*@
+@*@{
+    var newBook = new NewBookAlertConfig();                                                                                                                    /*Binding configuration to objects using bind method appsetting.json to map the properties of an obj to obj of model*/
+    _configuration.Bind("NewBookAlert", newBook);
+}*@
+
+<header>
     <nav class="navbar navbar-expand-sm navbar-Toggleable-sm navbar-light bg-light border-bottom box-shadow mb-3">
         <div class="container">
             <a class="navbar-brand" href="/">
                 <img src="~/images/1.2.png" width="40" height="40" asp-append-version="true" />
-                Book Store
+                @*@_bookRepo.GetAppName()*@                                                                                                                @*here we got app name using DI (we can get the appname from appsettings file by using this line but we need to use configuration code in repo file and in getappname method)*@
+                @_configuration["AppName"]                                                                                                                 @*here we got app name directly from appsettjsonfile. we can get this by above line also without writing this line and namespace*@
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbar"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -36,4 +51,28 @@
             </div>
         </div>
     </nav>
+    @*using this code and configuration service&namespace we display obj proprties in view.*@
+    @*@if (newBook.GetValue<bool>("DisplayNewBookAlert"))*@
+    @*{
+            <div class="alert alert-info" role="alert">
+                @(newBook.GetValue<string>("BookName"));
+            </div>
+        }*@
+
+    @*binding config and displaying it in view using bind method at top*@
+    @*@if (newBook.DisplayNewBookAlert)*@
+    @*{
+            <div class="alert alert-info" role="alert">
+                @newBook.BookName
+            </div>
+        }*@
+
+
+    @*using IOptions service displaying obj to obj of model*@
+    @if (_newBookAlertconfiguration.Value.DisplayNewBookAlert)
+    {
+        <div class="alert alert-info" role="alert">
+            @_newBookAlertconfiguration.Value.BookName
+        </div>
+    }
 </header>
