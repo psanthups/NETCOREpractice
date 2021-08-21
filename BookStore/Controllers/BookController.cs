@@ -59,7 +59,7 @@ namespace BookStore.Controllers
             //};
 
             /*No need of it as We used DI directly in view(addnew book)  */
-            /*ViewBag.Language =new SelectList(await _languageRepository.GetLanguages(), "Id", "Name");*/         //using this viewbag we pass the data to view(addnewbook.html) and stores value into "Id" and Text into "Name". we should use this code line in both post and get methods
+            ViewBag.Language =new SelectList(await _languageRepository.GetLanguages(), "Id", "Name");            //using this viewbag we pass the data to view(addnewbook.html) and stores value into "Id" and Text into "Name". we should use this code line in both post and get methods
 
             //ViewBag.Language = new SelectList(GetLanguage(), "Id", "Text");                                    // this for creating adropdown using selectlist and its multiple parameters
             /* var group1 = new SelectListGroup() { Name = "Group1" };

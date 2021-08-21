@@ -4,6 +4,7 @@ using BookStore.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,6 +32,9 @@ namespace BookStore
         {
             services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddIdentity<IdentityUser, IdentityRole>()                                                                                                  /*here we configuring the identity framework core and installing all features of addidentity*/
+                .AddEntityFrameworkStores<BookStoreContext>();                                                                                                  /*to work with db we need to provide which dbcontext we are using so the identity can work with that dbcontext*/
+
             services.AddControllersWithViews();
 #if DEBUG
 
@@ -42,10 +46,12 @@ namespace BookStore
             //    option.HtmlHelperOptions.ClientValidationEnabled = false;
             //});
 #endif  
-            services.AddScoped<IBookRepository, BookRepository>();                                                       //here we resolving dependency using this addscoped method (dependency we used in BookRepository class)
+            services.AddScoped<IBookRepository, BookRepository>();                                                       //here we resolving dependency using this addscoped method (dependency we used in BookRepository class) : By registering these repositors in scoped pattern
             services.AddScoped<ILangugeRepository, LangugeRepository>();
+            services.AddSingleton<IMessageRepository, MessageRepository>();
 
-            services.Configure<NewBookAlertConfig>(_configuration.GetSection("NewBookAlert"));                            /*Here we configuring IOption configuration by using services in configure services method*/
+            services.Configure<NewBookAlertConfig>("InternalBook",_configuration.GetSection("NewBookAlert"));                            /*Here we configuring IOption configuration by using services in configure services method*/
+            services.Configure<NewBookAlertConfig>("ThirdPartyBook",_configuration.GetSection("ThirdPartyBook"));                         /*if the configuration done in this way then the second one override the first one so to resolve this we use named configs by passing name of configs(any name) as first parameters ex: InternalBook*/
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,13 +64,15 @@ namespace BookStore
 
             app.UseStaticFiles();
 
-            /*app.UseStaticFiles(new StaticFileOptions()  //this is for acces static files from other location
+            /*app.UseStaticFiles(new StaticFileOptions()  //this is for access static files from other location
             {
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "MyStaticFiles")),
                 RequestPath = "/MyStaticFiles"
             });*/
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

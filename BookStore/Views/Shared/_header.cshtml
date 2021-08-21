@@ -3,7 +3,7 @@
 @*same as above line just divided service(of configuration) and The namespace (wrote seperately)*@
 @using Microsoft.Extensions.Configuration
 @inject IConfiguration _configuration
-@inject Microsoft.Extensions.Options.IOptions<NewBookAlertConfig> _newBookAlertconfiguration
+@inject Microsoft.Extensions.Options.IOptionsSnapshot<NewBookAlertConfig> _newBookAlertconfiguration
 @*@{
         var newBook = _configuration.GetSection("NewBookAlert");                                                                                               /*here we using configuration with section by doing this no need to write field name and obj name(obj in Json file)means no repitation. see diff b/w below and this line*/
     }*@
@@ -11,6 +11,10 @@
         var newBook = new NewBookAlertConfig();                                                                                                                    /*Binding configuration to objects using bind method appsetting.json to map the properties of an obj to obj of model*/
         _configuration.Bind("NewBookAlert", newBook);
     }*@
+@{ 
+    var newBookAlertconfiguration = _newBookAlertconfiguration.Get("InternalBook");
+    var thirdPartyBookconfiguration = _newBookAlertconfiguration.Get("ThirdPartyBook");
+}
 
 <header>
     <nav class="navbar navbar-expand-sm navbar-Toggleable-sm navbar-light bg-light border-bottom box-shadow mb-3">
@@ -68,11 +72,18 @@
         }*@
 
 
-    @*using IOptions service displaying obj to obj of model*@
-    @if (_newBookAlertconfiguration.Value.DisplayNewBookAlert)
+    @*using IOptions service displaying obj to obj of model but one thing that we cant use Ioptions while using named options but use options snapahot or monitor*@
+    @if (newBookAlertconfiguration.DisplayNewBookAlert)
     {
         <div class="alert alert-info" role="alert">
-            @_newBookAlertconfiguration.Value.BookName
+            @newBookAlertconfiguration.BookName
+        </div>
+    }
+    @*using NamedOptions service displaying two objs of json file above one also*@
+    @if (thirdPartyBookconfiguration.DisplayNewBookAlert)
+    {
+        <div class="alert alert-info" role="alert">
+            @thirdPartyBookconfiguration.BookName
         </div>
     }
 </header>
