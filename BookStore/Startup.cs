@@ -49,6 +49,7 @@ namespace BookStore
             services.AddScoped<IBookRepository, BookRepository>();                                                       //here we resolving dependency using this addscoped method (dependency we used in BookRepository class) : By registering these repositors in scoped pattern
             services.AddScoped<ILangugeRepository, LangugeRepository>();
             services.AddSingleton<IMessageRepository, MessageRepository>();
+            services.AddScoped<IAccountRepository, AccountRepository>();
 
             services.Configure<NewBookAlertConfig>("InternalBook",_configuration.GetSection("NewBookAlert"));                            /*Here we configuring IOption configuration by using services in configure services method*/
             services.Configure<NewBookAlertConfig>("ThirdPartyBook",_configuration.GetSection("ThirdPartyBook"));                         /*if the configuration done in this way then the second one override the first one so to resolve this we use named configs by passing name of configs(any name) as first parameters ex: InternalBook*/
