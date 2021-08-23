@@ -15,6 +15,10 @@
         <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link rel="stylesheet" href="main.css">
+        @*//below links added here to get all custom-file styles those are not included in bootstrap file*@
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="main.css">
+
     </environment>
     <environment exclude="Development">
         @*<link href="~/lib/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" />*@
@@ -39,6 +43,16 @@
                 <form asp-action="Signup">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
+                        <label asp-for="FirstName" class="control-label"></label>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LastName" class="control-label"></label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
                         <label asp-for="Email" class="control-label"></label>
                         <input asp-for="Email" class="form-control" />
                         <span asp-validation-for="Email" class="text-danger"></span>
@@ -59,12 +73,12 @@
                 </form>
             </div>
             <div class="col-md-8" style="padding: 130px;">
-                <img src="~/images/signup1.png" class="img-fluid"/>
+                <img src="~/images/signup1.png" class="img-fluid" />
             </div>
         </div>
 
         <div>
-            <a asp-action="Index">Back to List</a>
+            <p>Click<a asp-action="Login" asp-controller="Account"> Here </a>to Login</p>
         </div>
     </div>
 

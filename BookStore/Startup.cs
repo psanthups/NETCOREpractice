@@ -32,8 +32,23 @@ namespace BookStore
         {
             services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<IdentityUser, IdentityRole>()                                                                                                  /*here we configuring the identity framework core and installing all features of addidentity*/
-                .AddEntityFrameworkStores<BookStoreContext>();                                                                                                  /*to work with db we need to provide which dbcontext we are using so the identity can work with that dbcontext*/
+            services.AddIdentity<ApplicationUser, IdentityRole>()                                                                                                  /*here we configuring the identity framework core and installing all features of addidentity*/
+                .AddEntityFrameworkStores<BookStoreContext>();                                                                                                  /*to work with db we need to provide which dbcontext we are using so the identity can work with that dbcontext.  here used ApplicationUser in place of IdentityUser cause we inherited this cls from that*/
+
+            services.Configure<IdentityOptions>(Options =>                                                                                                         /*here we are configuring the password (custom requirements) */
+            {
+                Options.Password.RequiredLength = 5;
+                Options.Password.RequiredUniqueChars = 1;
+                Options.Password.RequireDigit = false;
+                Options.Password.RequireLowercase = false;
+                Options.Password.RequireNonAlphanumeric = false;
+                Options.Password.RequireUppercase = false;
+            });
+
+            services.ConfigureApplicationCookie(config =>                                                                                                           /*here we using this service to configure login path if the user not loggedin for a athorized page*/
+            {
+                config.LoginPath = _configuration["Application:LoginPath"];                                                                                         /*here we can use "/login"  ofter = simply. but we are doing samething by reading appsettings from appsettings.json file*/
+            });
 
             services.AddControllersWithViews();
 #if DEBUG
@@ -51,8 +66,8 @@ namespace BookStore
             services.AddSingleton<IMessageRepository, MessageRepository>();
             services.AddScoped<IAccountRepository, AccountRepository>();
 
-            services.Configure<NewBookAlertConfig>("InternalBook",_configuration.GetSection("NewBookAlert"));                            /*Here we configuring IOption configuration by using services in configure services method*/
-            services.Configure<NewBookAlertConfig>("ThirdPartyBook",_configuration.GetSection("ThirdPartyBook"));                         /*if the configuration done in this way then the second one override the first one so to resolve this we use named configs by passing name of configs(any name) as first parameters ex: InternalBook*/
+            services.Configure<NewBookAlertConfig>("InternalBook", _configuration.GetSection("NewBookAlert"));                            /*Here we configuring IOption configuration by using services in configure services method*/
+            services.Configure<NewBookAlertConfig>("ThirdPartyBook", _configuration.GetSection("ThirdPartyBook"));                         /*if the configuration done in this way then the second one override the first one so to resolve this we use named configs by passing name of configs(any name) as first parameters ex: InternalBook*/
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,6 +89,8 @@ namespace BookStore
             app.UseRouting();
 
             app.UseAuthentication();
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
