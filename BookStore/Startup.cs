@@ -1,6 +1,8 @@
 using BookStore.Data;
+using BookStore.Helpers;
 using BookStore.Models;
 using BookStore.Repository;
+using BookStore.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -61,10 +63,13 @@ namespace BookStore
             //    option.HtmlHelperOptions.ClientValidationEnabled = false;
             //});
 #endif  
-            services.AddScoped<IBookRepository, BookRepository>();                                                       //here we resolving dependency using this addscoped method (dependency we used in BookRepository class) : By registering these repositors in scoped pattern
+            services.AddScoped<IBookRepository, BookRepository>();                                                                         //here we resolving dependency using this addscoped method (dependency we used in BookRepository class) : By registering these repositors in scoped pattern
             services.AddScoped<ILangugeRepository, LangugeRepository>();
             services.AddSingleton<IMessageRepository, MessageRepository>();
             services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IUserService, UserService>();
+
+            services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ApplicationUserClaimsPrincipalFactory>();                       /*here we telling our application that we are using the custom varsion of UserClaimsPrincipalFactory cls by regestering this service hare*/
 
             services.Configure<NewBookAlertConfig>("InternalBook", _configuration.GetSection("NewBookAlert"));                            /*Here we configuring IOption configuration by using services in configure services method*/
             services.Configure<NewBookAlertConfig>("ThirdPartyBook", _configuration.GetSection("ThirdPartyBook"));                         /*if the configuration done in this way then the second one override the first one so to resolve this we use named configs by passing name of configs(any name) as first parameters ex: InternalBook*/

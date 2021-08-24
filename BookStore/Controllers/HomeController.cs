@@ -8,6 +8,7 @@ using BookStore.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using BookStore.Repository;
+using BookStore.Service;
 
 namespace BookStore.Controllers
 {
@@ -17,22 +18,28 @@ namespace BookStore.Controllers
         private readonly NewBookAlertConfig _newBookAlertconfiguration;
         private readonly NewBookAlertConfig _thirdPartyBookconfiguration;
         private readonly IMessageRepository _messageRepository;
+        private readonly IUserService _userService;
 
         /* [ViewData]
            public string Title { get; set; }
            [ViewData]
            public BookModel book { get; set; }*/
 
-        public HomeController(IOptionsSnapshot<NewBookAlertConfig> newBookAlertconfiguration, IMessageRepository messageRepository)                       /*here we are injecting the confi service(Binding conf using Ioption) include model class into constr along with the singleton service(IMessageRepository) and binding the values in below lines*/            
+        public HomeController(IOptionsSnapshot<NewBookAlertConfig> newBookAlertconfiguration,
+            IMessageRepository messageRepository, IUserService userService)                                                                                /*here we are injecting the confi service(Binding conf using Ioption) include model class into constr along with the singleton service(IMessageRepository) and binding the values in below lines*/            
         {
             _newBookAlertconfiguration = newBookAlertconfiguration.Get("InternalBook");
             _thirdPartyBookconfiguration = newBookAlertconfiguration.Get("ThirdPartyBook");
             _messageRepository = messageRepository;
+            _userService = userService;
         }
 
         //[Route("")]
         public ViewResult Index()
         {
+            var userId = _userService.GetUserId();                                                                                                        /*here we are using GetUserId method(of UserService cls) by injecting the service into constructor*/
+            var isLoggedIn = _userService.IsAuthenticated();                                                                                              /*same as above line from same cls. from above line we are getting the loggedinuser Id and from this we get to know the user logged in or not*/
+
             /*var value = _messageRepository.GetName(); */                                                                                                   /*here we getting value from messagerepository these are for just check wether value coming or not*/
             bool isDisplay = _newBookAlertconfiguration.DisplayNewBookAlert;
             bool isDisplay1 = _thirdPartyBookconfiguration.DisplayNewBookAlert;
