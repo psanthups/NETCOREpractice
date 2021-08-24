@@ -68,9 +68,11 @@ namespace BookStore
             services.AddSingleton<IMessageRepository, MessageRepository>();
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IEmailService, EmailService>();
 
             services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ApplicationUserClaimsPrincipalFactory>();                       /*here we telling our application that we are using the custom varsion of UserClaimsPrincipalFactory cls by regestering this service hare*/
 
+            services.Configure<SMTPConfigModel>(_configuration.GetSection("SMTPConfig"));                                                 /*here we registering our configurationmodel(smtpconfigmodel) so that we can readthe configuration from appsettimgs,json file.  now we can use this service in emailservice file (ahich is in service folder we created) */
             services.Configure<NewBookAlertConfig>("InternalBook", _configuration.GetSection("NewBookAlert"));                            /*Here we configuring IOption configuration by using services in configure services method*/
             services.Configure<NewBookAlertConfig>("ThirdPartyBook", _configuration.GetSection("ThirdPartyBook"));                         /*if the configuration done in this way then the second one override the first one so to resolve this we use named configs by passing name of configs(any name) as first parameters ex: InternalBook*/
         }
