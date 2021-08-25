@@ -1,5 +1,6 @@
 ﻿using BookStore.Models;
 using BookStore.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -159,6 +160,23 @@ namespace BookStore.Controllers
                 ModelState.AddModelError("", "Somthing went wrong.");
             }
             return View(model);
+        }
+
+        [AllowAnonymous, HttpGet("forgot-password")]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [AllowAnonymous, HttpPost("forgot-password")]
+        public IActionResult ForgotPassword(ForgotPasswordModel model)
+        {
+            if(ModelState.IsValid)
+            {
+                ModelState.Clear();
+                model.EmailSent = true;
+            }
+            return View();
         }
     }
 }
