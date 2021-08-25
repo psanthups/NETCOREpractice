@@ -35,7 +35,7 @@ namespace BookStore
             services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()                                                                                                  /*here we configuring the identity framework core and installing all features of addidentity*/
-                .AddEntityFrameworkStores<BookStoreContext>();                                                                                                  /*to work with db we need to provide which dbcontext we are using so the identity can work with that dbcontext.  here used ApplicationUser in place of IdentityUser cause we inherited this cls from that*/
+                .AddEntityFrameworkStores<BookStoreContext>().AddDefaultTokenProviders();                                                                          /*to work with db we need to provide which dbcontext we are using so the identity can work with that dbcontext.  here used ApplicationUser in place of IdentityUser cause we inherited this cls from that.  and added defaultokenproviders to work with email verification, forgot password by tokens we can do that.*/
 
             services.Configure<IdentityOptions>(Options =>                                                                                                         /*here we are configuring the password (custom requirements) */
             {
@@ -45,6 +45,8 @@ namespace BookStore
                 Options.Password.RequireLowercase = false;
                 Options.Password.RequireNonAlphanumeric = false;
                 Options.Password.RequireUppercase = false;
+
+                Options.SignIn.RequireConfirmedEmail = true;
             });
 
             services.ConfigureApplicationCookie(config =>                                                                                                           /*here we using this service to configure login path if the user not loggedin for a athorized page*/
