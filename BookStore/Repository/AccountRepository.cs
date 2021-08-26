@@ -57,6 +57,15 @@ namespace BookStore.Repository
             }
         }
 
+        public async Task GenerateForgotPasswordTokenAsync(ApplicationUser user)
+        {
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            if (!string.IsNullOrEmpty(token))
+            {
+                await SendForgotPasswordEmail(user, token);
+            }
+        }
+
         public async Task<SignInResult> PasswordSignInAsync(SignInModel signInModel)
         {
             return await _signInManager.PasswordSignInAsync(signInModel.Email, signInModel.Password, signInModel.RememberMe, false);
@@ -80,6 +89,11 @@ namespace BookStore.Repository
             return await _userManager.ConfirmEmailAsync(await _userManager.FindByIdAsync(uid), token);
         }
 
+        public async Task<IdentityResult> ResetPasswordAsync(ResetPasswordModel model)
+        {
+           return await _userManager.ResetPasswordAsync(await _userManager.FindByIdAsync(model.UserId), model.Token, model.NewPassword);
+        }
+
         private async Task SendEmailConfirmationEmail(ApplicationUser user, string token)
         {
             string appDomain = _configuration.GetSection("Application:AppDomain").Value;
@@ -96,6 +110,25 @@ namespace BookStore.Repository
             };
 
             await _emailService.SendEmailForEmailConfirmation(options);                                                                                              /*here we are calling  public SendTestEmail method from EmailSrvice cls by passing above cls instance*/
+
+        }
+
+        private async Task SendForgotPasswordEmail(ApplicationUser user, string token)
+        {
+            string appDomain = _configuration.GetSection("Application:AppDomain").Value;
+            string confirmationLink = _configuration.GetSection("Application:ForgotPassword").Value;
+
+            UserEmailOptions options = new UserEmailOptions                                                                                               /*here by creating instance of UserEmailOption cls we Wrote some logic here*/
+            {
+                ToEmails = new List<string>() { user.Email },                                                                                          /*we are using fake smtp credentials from mailtrap site so whatever emails we write here will go to mailtrap site*/
+                PlaceHolders = new List<KeyValuePair<string, string>>()                                                                                      /*by using this we can pass or send dynamic content in mails. this done by using placholder property and updateplaceholder method in respective clss*/
+                {
+                    new KeyValuePair<string, string>("{{UserName}}", user.FirstName),
+                    new KeyValuePair<string, string>("{{Link}}", string.Format(appDomain + confirmationLink, user.Id, token))
+                }
+            };
+
+            await _emailService.SendEmailForForgotPassword(options);                                                                                              /*here we are calling  public SendTestEmail method from EmailSrvice cls by passing above cls instance*/
 
         }
     }

@@ -33,6 +33,14 @@ namespace BookStore.Service
             await SendEmail(userEmailOptions);                                                                                                           /*here we are calling SendEmail private method in this public method */
         }
 
+        public async Task SendEmailForForgotPassword(UserEmailOptions userEmailOptions)                                                                            /*To send the email we need a public method. we get details from UserEmailOptions cls in this method*/
+        {
+            userEmailOptions.Subject = UpdatePlaceHolder("Hello {{UserName}}, reset your password", userEmailOptions.PlaceHolders);
+            userEmailOptions.Body = UpdatePlaceHolder(GetEmailBody("ForgotPassword"), userEmailOptions.PlaceHolders);
+
+            await SendEmail(userEmailOptions);                                                                                                           /*here we are calling SendEmail private method in this public method */
+        }
+
         public EmailService(IOptions<SMTPConfigModel> smtpConfig)
         {
             _smtpConfig = smtpConfig.Value;
