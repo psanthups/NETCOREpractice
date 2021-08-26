@@ -47,6 +47,14 @@ namespace BookStore
                 Options.Password.RequireUppercase = false;
 
                 Options.SignIn.RequireConfirmedEmail = true;
+
+                Options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+                Options.Lockout.MaxFailedAccessAttempts = 3;
+            });
+
+            services.Configure<DataProtectionTokenProviderOptions>(options =>
+            {
+                options.TokenLifespan = TimeSpan.FromMinutes(5);
             });
 
             services.ConfigureApplicationCookie(config =>                                                                                                           /*here we using this service to configure login path if the user not loggedin for a athorized page*/
@@ -120,6 +128,10 @@ namespace BookStore
                 {
                     await context.Response.WriteAsync("Hello World!");
                 });*/
+
+                endpoints.MapControllerRoute(                                                                              //this route is used here to get Areas Route
+                     name: "MyArea",
+                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

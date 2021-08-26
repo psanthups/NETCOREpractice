@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using BookStore.Repository;
 using BookStore.Service;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BookStore.Controllers
 {
@@ -77,6 +78,7 @@ namespace BookStore.Controllers
         {
             return View();
         }
+        [Authorize(Roles ="Admin")]
         public ViewResult Contactus()
         {
             return View();
